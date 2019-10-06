@@ -1,0 +1,23 @@
+{
+  "signup_username": "用戶名",
+  "signup_nickname": "昵稱",
+  "signup_password": "密碼（8-20位數字或字母）",
+  "signup_password_confirmation": "確認密碼",
+  "signup_invite_code": "邀請碼（必填）",
+  "signup_submit": "註 冊",
+  "signup_e_1": "登錄密碼不一緻",
+  "signup_e_2": "提現密碼不一緻",
+  "signup_e_3": "登錄密碼和提現密碼必須不同",
+  "login_username": "請輸入您的用戶名",
+  "login_password": "請輸入您的登錄密碼",
+  "login_submit": "登 錄",
+  "login_forgot_pass": "忘記密碼",
+  "login_nopass": "還冇有賬戶？",
+  "login_signup": "註冊",
+  "login_e_1": "請輸入用戶名",
+  "login_e_2": "請輸入密碼",
+  "index_yesterday": "昨日收益",
+  "buy_state_pending": "排隊中",
+  "buy_state_allowed": "挖礦中",
+  "buy_state_done": "已結束"
+}

@@ -7,6 +7,7 @@ import { connect } from 'dva';
 import { Carousel, Icon } from 'antd';
 import { Link } from 'dva/router';
 import Markets from './markets';
+import FormattedMessage, { t } from '../common/formattedMessage';
 
 import './style.scss';
 
@@ -23,7 +24,7 @@ import refreshImg from '../../../assets/index_refresh.svg';
 
 class Index extends Component {
   state = {
-    use: 'btc',
+    use: 'main',
     point: 0,
   }
 
@@ -48,13 +49,12 @@ class Index extends Component {
   }
 
   getUseWallet = () => {
-    const { account } = this.props;
+    const { account, acitiviesYesterday } = this.props;
     const { use } = this.state;
-    if (use === 'btc') {
+    if (use === 'main') {
       return {
-        name: 'BTC',
-        yesterday: account.btc_yesterday_earnings,
-        total: account.btc_total_earnings,
+        name: 'MAIN',
+        yesterday: acitiviesYesterday,
       };
     }
     return {
@@ -120,20 +120,19 @@ class Index extends Component {
         </div>
         <div className="pad shadow-pad">
           <div className="pad-header">
-            <div className="name">昨日收益</div>
+            <div className="name">{t('index_yesterday')}</div>
             <div className="top-select">
               <span>
-                <span className={classnames('option', { active: use === 'btc' })} onClick={this.handleChangeUse.bind(this, 'btc')}>BTC</span>
-                <span className={classnames('option', { active: use === 'ltc' })} onClick={this.handleChangeUse.bind(this, 'ltc')}>LTC</span>
+                <span className={classnames('option', { active: use === 'main' })} onClick={this.handleChangeUse.bind(this, 'main')}>MAIN</span>
               </span>
             </div>
           </div>
           <div className="earn" onClick={this.handleRedirect.bind(this, '/activities')}>
             <div className="yesterday">{useWallet.yesterday}</div>
-            <div className="total">
+            {/* <div className="total">
               <div>您在MainChain总计收获</div>
               <div>{useWallet.total} {useWallet.name}</div>
-            </div>
+            </div> */}
           </div>
         </div>
         {notices.length > 0 && (
@@ -152,6 +151,7 @@ function mapStateToProps({ market, account, utils, notice }) {
     banners: utils.banners,
     account: account.account,
     notices: notice.notices,
+    acitiviesYesterday: account.acitiviesYesterday,
   };
 }
 

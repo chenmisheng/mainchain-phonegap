@@ -7,6 +7,7 @@ import router from './router';
 import models from '../dashboard/models';
 // import CONFIG from '../config';
 import message from '../utils/message';
+import anime from './anime';
 import './index.scss';
 
 // import welcomeVideo from '../assets/welcome.mp4';
@@ -90,7 +91,8 @@ $(() => {
   //   loop();
   // }, 0);
   // v[0].play();
-  render();
+  // render();
+  anime(render);
 });
 
 // 权限

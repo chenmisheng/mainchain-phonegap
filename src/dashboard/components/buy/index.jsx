@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -8,6 +9,7 @@ import { connect } from 'dva';
 import { Spin, Input, Checkbox } from 'antd';
 import { Link } from 'dva/router';
 import message from '../../../utils/message';
+import FormattedMessage, { t } from '../common/formattedMessage';
 
 import './style.scss';
 
@@ -16,6 +18,7 @@ import buyUsdtImg from '../../../assets/usdt-x.png';
 import ltcImg from '../../../assets/ltc-x.png';
 import btcImg from '../../../assets/btc-x.png';
 import jiweiImg from '../../../assets/position.jpg';
+import order from '../order';
 
 const icons = {
   btc: btcImg,
@@ -29,57 +32,41 @@ class Buy extends Component {
   state = {
     selected: undefined,
     showOrder: false,
-    use: 'usdt',
+    use: 'main',
     form: {},
     checked: false,
     showTip: false,
   }
 
-  getOrderCost() {
-    const { form } = this.state;
-    let cost = 0;
-    Object.keys(form).forEach((id) => {
-      const p = form[id];
-      cost += parseFloat(p.product.price) * p.count;
-    });
-    return cost;
-  }
+  getItemList(list) {
+    const canBuy = this.props.list.can_buy;
 
-  getItemList(list, icon) {
-    const { form } = this.state;
     return list.map(product => (
       <div className="item shadow-pad" key={product.id}>
         <div className="logo">
-          <img src={icon || icons[product.currency.toLowerCase()]} alt="" />
+          <span>{product.vip_level.toUpperCase()}</span>
         </div>
         <div className="center">
-          {product.product_type === 'buy_position' ? (
-            <div className="txid">{product.power}机位 <span>{product.price} USDT({product.days}天/期)</span></div>
-          ) : (product.product_type === 'monthly_1' || product.product_type === 'monthly_2' ? (
-            <div className="txid">{product.power}份 <span>{product.price} USDT({product.days}天/期)</span></div>
-          ) : (
-            <div className="txid">{product.power}T <span>{product.price} USDT({product.days}天/期)</span></div>
-          ))}
-            
-          <div className="time">{product.month_earns}</div>
+          <div className="txid">{product.price} MAIN</div>
+          <div className="time">當前排隊：{product.ranking}</div>
         </div>
         <div className="amount">
-          <a className="minus" onClick={this.handleProductCountClick.bind(this, product, -1)}>-</a>
-          <Input className="amount-input" value={form[product.id] ? form[product.id].count : ''} onChange={this.handleProductCountChange.bind(this, product)} />
-          <a className="plus" onClick={this.handleProductCountClick.bind(this, product, 1)}>+</a>
-
-          <div className="remain">剩余{product.number}份</div>
+          {canBuy ? (
+            <div className="select-btn" onClick={() => this.handleShowOrder(product)}>預約</div>
+          ) : (
+            <div className="select-btn disabled">無法購買</div>
+          )}
+          <div className="remain">收益：{product.rate} / d</div>
         </div>
       </div>
     ));
   }
 
-  handleShowOrder = () => {
-    if (this.getOrderCost() > 0) {
-      this.setState({
-        showOrder: true,
-      });
-    }
+  handleShowOrder = (selected) => {
+    this.setState({
+      selected,
+      showOrder: true,
+    });
   }
 
   handleCloseModal = (e) => {
@@ -99,7 +86,7 @@ class Buy extends Component {
   }
 
   handleSubmitOrder = () => {
-    const { form, submitting, checked } = this.state;
+    const { selected, submitting, checked, use } = this.state;
     const { dispatch } = this.props;
 
     if (submitting) return;
@@ -112,14 +99,11 @@ class Buy extends Component {
       submitting: true,
     });
 
-    const order = Object.keys(form).map(id => ({
-      id,
-      amount: form[id].count,
-    }));
     dispatch({
       type: 'product/buy',
       payload: {
-        order,
+        product_id: selected.id,
+        currency: use.toUpperCase(),
       },
       onSuccess: () => {
         message.success('购买成功');
@@ -190,16 +174,16 @@ class Buy extends Component {
   }
 
   render() {
-    const { list, accountInfo } = this.props;
+    const { list, myMiner } = this.props;
     const {
-      showOrder, form, submitting, checked, showTip,
+      showOrder, selected, submitting, checked, showTip,
     } = this.state;
-    const orderCost = this.getOrderCost();
+    console.log(list);
 
 
     return (
       <div id="buy" className="container">
-        <div className="item balance shadow-pad">
+        {/* <div className="item balance shadow-pad">
           <img className="logo" src={buyUsdtImg} alt="" />
           <div className="center">
             <div className="txid">{accountInfo.usdt_balance} <span>USDT</span></div>
@@ -208,23 +192,55 @@ class Buy extends Component {
           <div className="amount">
             <Link to="/deposit/usdt" className="buy-btn">去充值</Link>
           </div>
-        </div>
+        </div> */}
 
-        <div className="product-group-title">租赁算力包（无忧挖矿，到期押金全退）</div>
-        {list.rent_products && this.getItemList(list.rent_products)}
+        {myMiner && (
+          <>
+            <div className="my-miner" key={myMiner.id}>
+              <div className="card">
+                <div className="head">
+                  <div className="title">
+                    <div>我的礦機</div>
+                    <div className="state">{myMiner.price} MAIN</div>
+                  </div>
+                  <div className="logo">
+                    <span>{myMiner.vip_level.toUpperCase()}</span>
+                  </div>
+                </div>
+                {myMiner.state === 'pending' && (
+                  <div className="center">
+                    <div className="time">隊列長度：{myMiner.ranking}</div>
+                    <div className="state">{t(`buy_state_${myMiner.state}`)}</div>
+                  </div>
+                )}
+                {myMiner.state === 'allowed' && (
+                  <div className="center">
+                    <div className="time">總量：{myMiner.price * 2} MAIN</div>
+                    <div className="state">{t(`buy_state_${myMiner.state}`)}</div>
+                  </div>
+                )}
+                <div className="amount"></div>
+              </div>
+            </div>
+          </>
+        )}
+        <div className="product-group-title">預約礦機</div>
+        {list.products && this.getItemList(list.products)}
+        <div style={{ textAlign: 'center', marginTop: 20 }}>
+          <Link to="/orders">查看所有訂單</Link>
+        </div>
         {/* <div className="product-group-title">租赁算力包（无忧挖矿，到期押金全退）</div> */}
-        {list.reservation_buy_products && this.getItemList(list.reservation_buy_products)}
+        {/* {list.reservation_buy_products && this.getItemList(list.reservation_buy_products)} */}
         {/* <div className="product-group-title">购买算力包</div>
         {list.buy_products && this.getItemList(list.buy_products)}
         <div className="product-group-title">矿场机位（限时预约，付款后30天后开始产生收益）</div>
         {list.buy_position_products && this.getItemList(list.buy_position_products, jiweiImg)} */}
-        <div className="product-group-title">理财套餐包（稳定理财，到期押金全退）</div>
+        {/* <div className="product-group-title">理财套餐包（稳定理财，到期押金全退）</div>
         {list.monthly_1_products && this.getItemList(list.monthly_1_products)}
-        {list.monthly_2_products && this.getItemList(list.monthly_2_products)}
+        {list.monthly_2_products && this.getItemList(list.monthly_2_products)} */}
 
         {/* {list.buy_position_products && this.getItemList(list.buy_position_products, jiweiImg)} */}
-
-        <div className="footer">
+        {/* <div className="footer">
           <div className="info-container">
             <div className="info">
               <div className="cost">合计：{orderCost} USDT</div>
@@ -233,28 +249,26 @@ class Buy extends Component {
           <div className="btn-container">
             <div className="btn" onClick={this.handleShowOrder}>确认订单</div>
           </div>
-        </div>
+        </div> */}
         {showOrder && (
           <div className="order-modal" onClick={this.handleCloseModal}>
             <div className="order-container">
-              {Object.keys(form).map(id => form[id]).map(order => (
-                <div className="item shadow-pad" key={order.product.id}>
-                  <div className="logo">
-                    <img src={icons[order.product.currency.toLowerCase()]} alt="" />
-                  </div>
-                  <div className="center">
-                    <div className="txid">{order.product.power}T ({order.product.days}天/期)</div>
-                    <div className="time">{order.product.price} USDT</div>
-                  </div>
-                  <div className="amount check">X{order.count}</div>
+              <div className="item shadow-pad">
+                <div className="logo">
+                  <span>{selected.vip_level.toUpperCase()}</span>
                 </div>
-              ))}
+                <div className="center">
+                  <div className="txid">{selected.price} MAIN</div>
+                  <div className="time">當前排隊：{selected.ranking}</div>
+                </div>
+                <div className="amount check">X 1</div>
+              </div>
               <div className="check"><Checkbox onChange={this.handleCheckChange} checked={checked}>同意</Checkbox><a onClick={() => this.setState({ showTip: true })}>《MainChain风险提示》</a></div>
               <div className="submit" onClick={this.handleSubmitOrder}>
                 {submitting ? (
                   <Spin />
                 ) : (
-                  `提交订单 (合计${orderCost} USDT)`
+                  '提交订单'
                 )}
               </div>
             </div>
@@ -296,11 +310,14 @@ class Buy extends Component {
 }
 
 function mapStateToProps({ product, account }) {
-  const { account: accountInfo } = account;
+  const { account: accountInfo, orders } = account;
+  const { products } = product;
+  const myMiner = orders.filter(o => o.state === 'pending' || o.state === 'allowed')[0];
 
   return {
-    list: product.products,
-    canBuy: product.canBuy,
+    myMiner,
+    orders,
+    list: products,
     accountInfo,
   };
 }

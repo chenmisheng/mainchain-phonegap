@@ -34,6 +34,10 @@
   }
 
   .card-container {
+    padding: 0.2rem;
+    border-radius: 0.15rem;
+    margin-bottom: 0.12rem;
+    background-image: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
     display: flex;
     justify-content: space-around;
   }

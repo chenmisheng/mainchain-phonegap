@@ -38,9 +38,9 @@ class Footer extends Component {
           </Link>
         </div>
         <div className={classnames('item', { active: activeNav === 1 })}>
-          <Link to="/power">
+          <Link to="/buy">
             <span><img src={powerActiveImg} alt="" /></span>
-            <span>邀请</span>
+            <span>礦機</span>
           </Link>
         </div>
         <div className={classnames('item', { active: activeNav === 4 })}>

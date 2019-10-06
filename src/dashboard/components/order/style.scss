@@ -44,9 +44,16 @@
       width: 0.4rem;
       text-align: center;
 
-      img {
-        max-width: 0.4rem;
-        max-height: 0.4rem;
+      span {
+        display: inline-block;
+        width: 0.4rem;
+        height: 0.4rem;
+        background-image: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
+        border-radius: 0.2rem;
+        line-height: 0.4rem;
+        font-size: 0.16rem;
+        font-weight: 500;
+        color: #fff;
       }
     }
 

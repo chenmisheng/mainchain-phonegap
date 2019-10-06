@@ -8,7 +8,7 @@ import { Link } from 'dva/router';
 import './style.scss';
 
 // images
-import avatarImg from '../../../assets/mainchain-x.png';
+import avatarImg from '../../../assets/logo-1.png';
 import linkImg1 from '../../../assets/me_link_1.svg';
 import linkImg2 from '../../../assets/me_link_2.svg';
 import linkImg3 from '../../../assets/me_link_3.svg';
@@ -16,6 +16,7 @@ import linkImg4 from '../../../assets/me_link_4.svg';
 import linkImg5 from '../../../assets/me_link_5.svg';
 import linkImg6 from '../../../assets/me_link_6.svg';
 import linkImg7 from '../../../assets/me_link_7.svg';
+import linkImg8 from '../../../assets/me_link_8.svg';
 
 class Me extends Component {
   handleLogout = () => {
@@ -36,14 +37,18 @@ class Me extends Component {
           <div className="code">{userInfo.nickname}</div>
         </div>
         <div className="link-list block">
-          <Link to="/changeWithdrawPassword" className="link">
+          {/* <Link to="/changeWithdrawPassword" className="link">
             <div><span className="icon"><img src={linkImg1} alt="" /></span> <span>钱包设置</span></div>
             <div className="goto" />
-          </Link>
+          </Link> */}
           <Link to="/changePassword" className="link">
-            <div><span className="icon"><img src={linkImg2} alt="" /></span> <span>安全设置</span></div>
+            <div><span className="icon"><img src={linkImg2} alt="" /></span> <span>修改密碼</span></div>
             <div className="goto" />
           </Link>
+          {/* <Link to="/me" className="link">
+            <div><span className="icon"><img src={linkImg5} alt="" /></span> <span>綁定手機</span></div>
+            <div className="goto" />
+          </Link> */}
           {/* <Link to="/about" className="link">
             <div><span className="icon"><img src={linkImg3} alt="" /></span> <span>关于我们</span></div>
             <div className="goto" />
@@ -52,13 +57,13 @@ class Me extends Component {
             <div><span className="icon"><img src={linkImg4} alt="" /></span> <span>常见问题</span></div>
             <div className="goto" />
           </Link>
-          <Link to="/me" className="link">
-            <div><span className="icon"><img src={linkImg5} alt="" /></span> <span>联系我们</span></div>
-            <div>客服微信：cat1878</div>
-          </Link>
           <Link to="/invite" className="link">
             <div><span className="icon"><img src={linkImg6} alt="" /></span> <span>APP下载</span></div>
             <div className="goto" />
+          </Link>
+          <Link to="/me" className="link">
+            <div><span className="icon"><img src={linkImg8} alt="" /></span> <span>客服郵箱</span></div>
+            <div className="clipboard-target" data-clipboard-text="alexchen5387@gmail.com">alexchen5387@gmail.com</div>
           </Link>
           <Link to="/me" className="link">
             <div><span className="icon"><img src={linkImg7} alt="" /></span> <span>当前版本</span></div>

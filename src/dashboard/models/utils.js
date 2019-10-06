@@ -3,12 +3,16 @@ import pathToRegexp from 'path-to-regexp';
 import message from '../../utils/message';
 import fetch from '../../utils/fetch';
 import QUERYS from '../querys';
+import I18N from './i18n';
 
 const sendSms = data => fetch.post(QUERYS.SEND_SMS, data);
 const sendResetSms = data => fetch.post(QUERYS.SEND_FORGET_SMS, data);
 const signup = data => fetch.post(QUERYS.SIGNUP, data);
 const resetPassword = data => fetch.post(QUERYS.RESET_PASSWORD, data);
 const queryBanners = () => fetch.get(QUERYS.QUERY_BANNERS);
+
+window.locale = window.localStorage.getItem('MAIN_LOCAL') || 'zh-tw';
+window.i18n = I18N[window.locale];
 
 const pathConfigs = {
   '/': {
@@ -28,14 +32,18 @@ const pathConfigs = {
       type: 'queryBanners',
     }, {
       type: 'notice/queryNotices',
+    }, {
+      type: 'account/queryAcitivies',
+    }, {
+      type: 'account/queryAcitiviesYesterday',
     }],
   },
   '/power': {
     header: {
       title: '我的邀请',
-    },
-    footer: {
-      activeNav: 1,
+      icon: {
+        left: 'back',
+      },
     },
     refresh: [{
       type: 'account/queryMy',
@@ -50,14 +58,16 @@ const pathConfigs = {
   '/buy': {
     header: {
       title: '购买算力',
-      icon: {
-        left: 'back',
-      },
+    },
+    footer: {
+      activeNav: 1,
     },
     refresh: [{
       type: 'product/queryProducts',
     }, {
       type: 'account/queryAccount',
+    }, {
+      type: 'account/queryOrders',
     }],
   },
   '/wallet': {
@@ -256,6 +266,8 @@ export default {
     needUpgrade: null,
     coverHeaderTitle: null,
     banners: [],
+    locale: window.locale,
+    i18n: window.i18n,
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -400,6 +412,24 @@ export default {
           type: 'updateState',
           payload: {
             banners: data.data,
+          },
+        });
+      }
+    },
+    * changeLocale({ payload }, { select, put }) {
+      const origin = yield select(({ utils }) => utils.locale);
+      if (origin === payload) return;
+      const i18n = I18N[payload];
+      if (i18n) {
+        // 一些全局变量以及LocalStorage
+        window.locale = payload;
+        window.i18n = i18n;
+        window.localStorage.setItem('MAIN_LOCAL', payload);
+        yield put({
+          type: 'updateState',
+          payload: {
+            i18n,
+            locale: payload,
           },
         });
       }

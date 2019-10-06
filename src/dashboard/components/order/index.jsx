@@ -25,14 +25,10 @@ class Order extends Component {
     return list.map(product => (
       <div className="item balance shadow-pad" key={product.id}>
         <div className="logo">
-          <img src={minerLogo} alt="" />
+          <span>{product.vip_level.toUpperCase()}</span>
         </div>
         <div className="center">
-          {product.product_type === 'buy_position' ? (
-            <div className="txid">{product.power}机位 <span>{product.price} USDT({product.days}天/期)</span></div>
-          ) : (
-            <div className="txid">{product.power}T <span>{product.price} USDT({product.days}天/期)</span></div>
-          )}
+          <div className="txid">{product.price} MAIN</div>
           <div className="time">购买时间：{product.created_at}</div>
           <div className="time">到期时间：{product.end_at}</div>
         </div>
@@ -69,36 +65,7 @@ class Order extends Component {
         {orders.length === 0 && (
           <div style={{ textAlign: 'center' }}>暂无订单</div>
         )}
-        {list.rent_products && list.rent_products.length > 0 && (
-          <div>
-            <div className="product-group-title">租赁算力包（无忧挖矿，到期押金全退）</div>
-            {this.getItemList(list.rent_products)}
-          </div>
-        )}
-        {list.buy_products && list.buy_products.length > 0 && (
-          <div>
-            <div className="product-group-title">购买矿机</div>
-            {this.getItemList(list.buy_products)}
-          </div>
-        )}
-        {list.reservation_buy_products && list.reservation_buy_products.length > 0 && (
-          <div>
-            <div className="product-group-title">购买矿机（限时预约，付款后20天后开始产生收益）</div>
-            {this.getItemList(list.reservation_buy_products)}
-          </div>
-        )}
-        {list.buy_position_products && list.buy_position_products.length > 0 && (
-          <div>
-            <div className="product-group-title">矿场机位（限时预约，付款后30天后开始产生收益）</div>
-            {this.getItemList(list.buy_position_products)}
-          </div>
-        )}
-        {list.experience && list.experience.length > 0 && (
-          <div>
-            <div className="product-group-title">体验矿机</div>
-            {this.getItemList(list.experience)}
-          </div>
-        )}
+        {this.getItemList(list)}
       </div>
     );
   }
@@ -117,16 +84,8 @@ function mapStateToProps({ account }) {
   //   product_type: 'rent',
   // }];
 
-  const list = {
-    rent_products: orders.filter(o => o.product_type === 'rent'),
-    buy_products: orders.filter(o => o.product_type === 'buy'),
-    reservation_buy_products: orders.filter(o => o.product_type === 'reservation_buy'),
-    buy_position_products: orders.filter(o => o.product_type === 'buy_position'),
-    experience: orders.filter(o => o.product_type === 'experience'),
-  };
-
   return {
-    list,
+    list: orders,
     orders,
   };
 }

@@ -39,27 +39,16 @@ class Wallet extends Component {
     if (use === 'usdt') {
       info.address = userInfo.usdt_payment_address;
       info.balance = accountInfo.usdt_balance;
-      info.locked = accountInfo.usdt_locked;
       info.logo = walletUsdtImg;
-      info.unitValue = prices.usdt.cny;
-    } else if (use === 'btc') {
+      info.unitValue = accountInfo.usdt_balance;
+    } else if (use === 'main') {
       info.address = '';
-      info.balance = accountInfo.btc_balance;
-      info.locked = accountInfo.btc_locked;
+      info.balance = accountInfo.balance;
+      info.locked = accountInfo.locked;
       info.logo = walletBase2Img;
-      info.unitValue = prices[use].usdt;
+      // info.unitValue = prices[use].usdt;
       info.block = block.btc;
-      info.earnings = accountInfo.btc_total_earnings;
       info.power = accountInfo.btc_total_power;
-    } else if (use === 'ltc') {
-      info.address = '';
-      info.balance = accountInfo.ltc_balance;
-      info.locked = accountInfo.ltc_locked;
-      info.logo = walletBase2Img;
-      info.unitValue = prices[use].usdt;
-      info.block = block.ltc;
-      info.earnings = accountInfo.ltc_total_earnings;
-      info.power = accountInfo.ltc_total_power;
     }
     return info;
   }
@@ -96,8 +85,7 @@ class Wallet extends Component {
         <div className="top-select">
           <span>
             <span className={classnames('option', { active: use === 'usdt' })} onClick={this.handleChangeUse.bind(this, 'usdt')}>USDT</span>
-            <span className={classnames('option', { active: use === 'btc' })} onClick={this.handleChangeUse.bind(this, 'btc')}>BTC</span>
-            <span className={classnames('option', { active: use === 'ltc' })} onClick={this.handleChangeUse.bind(this, 'ltc')}>LTC</span>
+            <span className={classnames('option', { active: use === 'main' })} onClick={this.handleChangeUse.bind(this, 'main')}>MAIN</span>
           </span>
         </div>
         <div className="card-container">
@@ -114,19 +102,21 @@ class Wallet extends Component {
               </span>
             </div> */}
           </div>
-          <div className={classnames('card', { usdt: use === 'usdt' })}>
-            <div className="top">锁定余额</div>
-            <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</AutoFontSizeDiv>
-            {/* <div className="value">
-              <span>
-                {use === 'usdt' ? (
-                  `${parseFloat(useWallet.locked * useWallet.unitValue).toFixed(2)} CNY`
-                ) : (
-                  `$ ${parseFloat(useWallet.locked * useWallet.unitValue).toFixed(2)}`
-                )}
-              </span>
-            </div> */}
-          </div>
+          {use === 'main' && (
+            <div className="card">
+              <div className="top">锁定余额</div>
+              <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</AutoFontSizeDiv>
+              {/* <div className="value">
+                <span>
+                  {use === 'usdt' ? (
+                    `${parseFloat(useWallet.locked * useWallet.unitValue).toFixed(2)} CNY`
+                  ) : (
+                    `$ ${parseFloat(useWallet.locked * useWallet.unitValue).toFixed(2)}`
+                  )}
+                </span>
+              </div> */}
+            </div>
+          )}
         </div>
         {useWallet.block && (
           <div className="info shadow-pad">
@@ -153,24 +143,18 @@ class Wallet extends Component {
           </div>
         )}
         <div className="opt">
-          {use === 'usdt' && (
-            <Link className="opt-btn" to={`/deposit/${use}`}>
-              充值
-            </Link>
-          )}
+          <Link className="opt-btn" to={`/deposit/${use}`}>
+            充值
+          </Link>
           <Link className="opt-btn" to={`/withdraw/${use}`}>
             提现
           </Link>
-          <Link className="opt-btn" to={`/transfer/${use}`}>
+          {/* <Link className="opt-btn" to={`/transfer/${use}`}>
             转账
-          </Link>
+          </Link> */}
         </div>
         <div className="big-container">
-          <Link className="big" to="/buy"><Icon type="transaction" /> <span>算力租赁</span></Link>
-          <Link className="big" to="/orders"><Icon type="account-book" /> <span>我的算力</span></Link>
-          {/* {accountInfo.can_experience && (
-            <a className="big" onClick={this.handleExperience}><Icon type="gift" /> <span>体验矿机</span></a>
-          )} */}
+          <Link className="big" to="/buy"><Icon type="transaction" /> <span>預約礦機</span></Link>
         </div>
       </div>
     );

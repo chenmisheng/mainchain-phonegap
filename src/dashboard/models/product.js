@@ -3,7 +3,7 @@ import fetch from '../../utils/fetch';
 import QUERYS from '../querys';
 import cleanStateModel from '../../utils/cleanState';
 
-const queryProducts = () => fetch.get(QUERYS.QUERY_PRODUCTS);
+const queryProducts = () => fetch.private.get(QUERYS.QUERY_PRODUCTS);
 const buy = data => fetch.private.post(QUERYS.QUERY_ORDERS, data);
 const continueOrder = id => fetch.private.post(QUERYS.CONTINUE(id));
 
