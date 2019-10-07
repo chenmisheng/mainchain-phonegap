@@ -27,7 +27,7 @@ class Me extends Component {
   }
 
   render() {
-    const { userInfo } = this.props;
+    const { userInfo, serverEmail } = this.props;
     return (
       <div id="me">
         <div className="avatar-container block">
@@ -63,7 +63,7 @@ class Me extends Component {
           </Link>
           <Link to="/me" className="link">
             <div><span className="icon"><img src={linkImg8} alt="" /></span> <span>客服郵箱</span></div>
-            <div className="clipboard-target" data-clipboard-text="alexchen5387@gmail.com">alexchen5387@gmail.com</div>
+            <div className="clipboard-target" data-clipboard-text={serverEmail}>{serverEmail}</div>
           </Link>
           <Link to="/me" className="link">
             <div><span className="icon"><img src={linkImg7} alt="" /></span> <span>当前版本</span></div>
@@ -93,11 +93,13 @@ class Me extends Component {
   }
 }
 
-function mapStateToProps({ account }) {
+function mapStateToProps({ account, utils }) {
   const { userInfo } = account;
+  const { serverEmail } = utils;
 
   return {
     userInfo,
+    serverEmail,
   };
 }
 

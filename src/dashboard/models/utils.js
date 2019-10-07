@@ -5,11 +5,18 @@ import fetch from '../../utils/fetch';
 import QUERYS from '../querys';
 import I18N from './i18n';
 
+const { $ } = window;
+
 const sendSms = data => fetch.post(QUERYS.SEND_SMS, data);
 const sendResetSms = data => fetch.post(QUERYS.SEND_FORGET_SMS, data);
 const signup = data => fetch.post(QUERYS.SIGNUP, data);
 const resetPassword = data => fetch.post(QUERYS.RESET_PASSWORD, data);
 const queryBanners = () => fetch.get(QUERYS.QUERY_BANNERS);
+const queryRemoteConfig = () => new Promise((resolve) => {
+  $.get('http://assets.zjzsxhy.com/other/main_data.json?_=' + new Date().getTime()).done((data) => {
+    resolve(data);
+  });
+});
 
 window.locale = window.localStorage.getItem('MAIN_LOCAL') || 'zh-tw';
 window.i18n = I18N[window.locale];
@@ -268,6 +275,9 @@ export default {
     banners: [],
     locale: window.locale,
     i18n: window.i18n,
+
+    //
+    serverEmail: window.localStorage.getItem('MAIN_SERVER_EMAIL') || '獲取中',
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -276,6 +286,9 @@ export default {
         payload: {
           history,
         },
+      });
+      dispatch({
+        type: 'queryRemoteConfig',
       });
       history.listen(({ pathname }) => {
         const c = Object.keys(pathConfigs).find(key => pathToRegexp(key).exec(pathname));
@@ -433,6 +446,19 @@ export default {
           },
         });
       }
+    },
+    * queryRemoteConfig(_, { call, put }) {
+      const data = yield call(queryRemoteConfig);
+      Object.keys(data).forEach((key) => {
+        window.localStorage.setItem(key, data[key]);
+      });
+
+      yield put({
+        type: 'updateState',
+        payload: {
+          serverEmail: window.localStorage.getItem('MAIN_SERVER_EMAIL'),
+        },
+      });
     },
   },
   reducers: {

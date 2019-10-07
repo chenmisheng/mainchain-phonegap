@@ -40,6 +40,13 @@ class Activities extends Component {
     const { loading } = this.state;
     const { list } = this.props;
 
+    // const list = [{
+    //   id: 1,
+    //   title: '挖礦獎勵',
+    //   time: '2019-02-10',
+    //   amount: 20,
+    // }];
+
     return (
       <div id="myActivities" className="container">
         {list.map(item => (
@@ -55,7 +62,7 @@ class Activities extends Component {
         {loading ? (
           <div className="my-loading"><Spin /></div>
         ) : (
-          <div className="btn" onClick={this.handleShowNextPage}>显示更多</div>
+          <div className="btn" onClick={this.handleShowNextPage}><a>显示更多</a></div>
         )}
       </div>
     );

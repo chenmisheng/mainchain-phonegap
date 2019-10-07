@@ -5,6 +5,7 @@
     display: flex;
     align-items: center;
     box-shadow: 0 0.08rem 0.16rem 0 rgba($color: #22222C, $alpha: 0.1);
+    background-image: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
     padding: 0.12rem;
     border-radius: 0.06rem;
     margin-bottom: 0.1rem;
@@ -35,7 +36,7 @@
     }
 
     .time {
-      color: rgba($color: #000, $alpha: 0.4);
+      color: rgba($color: #fff, $alpha: 0.6);
     }
   }
 
