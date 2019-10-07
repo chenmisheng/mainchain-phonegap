@@ -7,7 +7,6 @@ import logo2 from '../assets/logo-2.png';
 const { $ } = window;
 
 export default function init(callback) {
-
   if (config.PROXY_DOMAIN) {
     callback();
     $('#welcome').remove();
