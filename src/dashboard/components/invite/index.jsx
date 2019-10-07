@@ -10,7 +10,7 @@ import './style.scss';
 
 // TODO:
 function getUrl() {
-  return 'https://mainchain.io/';
+  return 'https://mainchainproject.com/';
 }
 
 // images

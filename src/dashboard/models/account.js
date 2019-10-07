@@ -225,7 +225,7 @@ export default cleanStateModel({
           history: 'LOADING',
         },
       });
-      const currency = payload || 'BASE';
+      const currency = payload || 'MAIN';
       const withdraws = yield call(queryWithdraws, { currency });
       const deposits = yield call(queryDeposits, { currency });
       if (withdraws.success && deposits.success) {

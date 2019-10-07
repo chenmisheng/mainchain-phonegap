@@ -154,7 +154,7 @@ const pathConfigs = {
   },
   '/subuser': {
     header: {
-      title: '我的矿工',
+      title: '我的團隊',
       icon: {
         left: 'back',
       },

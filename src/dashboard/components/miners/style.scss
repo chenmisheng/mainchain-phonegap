@@ -3,7 +3,7 @@
 
   .banner {
     color: #fff;
-    background: linear-gradient(45deg, #953D96 0%, #D85BDB 100%);
+    background: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
     text-align: center;
     padding: 0.2rem 0;
     border-radius: 0.07rem;
@@ -18,6 +18,15 @@
     display: flex;
     align-items: center;
     margin-bottom: 0.1rem;
+    background: #43485B;
+
+    .logo {
+      flex-grow: 0;
+      flex-shrink: 0;
+      width: 0.4rem;
+      background: #fff;
+      border-radius: 0.2rem;
+    }
 
     .center {
       font-size: 0.14rem;
@@ -39,7 +48,7 @@
     }
 
     .time {
-      color: rgba($color: #000, $alpha: 0.4);
+      color: rgba($color: #fff, $alpha: 0.4);
     }
   }
 }

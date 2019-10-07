@@ -6,6 +6,8 @@ import classnames from 'classnames';
 import { connect } from 'dva';
 import './style.scss';
 
+import walletBaseImg from '../../../assets/logo-1.png';
+
 // images
 class Invite extends Component {
   render() {
@@ -15,16 +17,19 @@ class Invite extends Component {
       <div id="miners" className="container">
         <div className="banner">
           <div className="title">矿工贡献</div>
-          <div className="value">{total} BASE</div>
+          <div className="value">{total} MAIN</div>
         </div>
         <div className="page-title">挖矿奖励</div>
         {list.map(item => (
           <div className="item shadow-pad" key={item.id}>
+            <img className="logo" src={walletBaseImg} alt="" />
             <div className="center">
-              <div className="txid">{item.nickname}</div>
-              <div className="time">ID: {item.user_id}</div>
+              <div className="txid">{item.nickname || item.description}</div>
+              {item.user_id && (
+                <div className="time">ID: {item.user_id}</div>
+              )}
             </div>
-            <div className="amount">{item.amount} BASE</div>
+            <div className="amount">{item.amount} MAIN</div>
           </div>
         ))}
       </div>

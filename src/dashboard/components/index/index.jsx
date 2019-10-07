@@ -4,10 +4,11 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
-import { Carousel, Icon } from 'antd';
+import { Carousel, Icon, Drawer } from 'antd';
 import { Link } from 'dva/router';
 import Markets from './markets';
 import FormattedMessage, { t } from '../common/formattedMessage';
+import openWindow from '../../../utils/openWindow';
 
 import './style.scss';
 
@@ -20,6 +21,17 @@ import menuImg from '../../../assets/index_menu.svg';
 import menu1Img from '../../../assets/index_menu_1.svg';
 import menu2Img from '../../../assets/index_menu_2.svg';
 import refreshImg from '../../../assets/index_refresh.svg';
+
+import linkImg1 from '../../../assets/indexIcon/1.svg';
+import linkImg2 from '../../../assets/indexIcon/2.svg';
+import linkImg3 from '../../../assets/indexIcon/3.svg';
+import linkImg4 from '../../../assets/indexIcon/4.svg';
+import linkImg5 from '../../../assets/indexIcon/5.svg';
+import linkImg6 from '../../../assets/indexIcon/6.svg';
+
+function openWhitepaper() {
+  openWindow('https://mainchainproject.com/whitepaper.pdf');
+}
 
 
 class Index extends Component {
@@ -100,6 +112,14 @@ class Index extends Component {
     });
   }
 
+  handleGoto(goto) {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'utils/goto',
+      goto,
+    });
+  }
+
   render() {
     const {
       prices, banners, notices,
@@ -134,11 +154,53 @@ class Index extends Component {
               <div>{useWallet.total} {useWallet.name}</div>
             </div> */}
           </div>
+          <Link className="link" to="/activities">查看所有獎勵</Link>
         </div>
         {notices.length > 0 && (
           <div className="notice shadow-pad" onClick={this.handleClickNotice}><Icon type="notification" /> {notices[point].title}</div>
         )}
+        <div className="links-row">
+          <div className="link" onClick={openWhitepaper}>
+            <div className="img-container"><img src={linkImg1} alt="" /></div>
+            <div>白皮書</div>
+          </div>
+          <div className="link" onClick={() => this.setState({ comingsoon: true })}>
+            <div className="img-container"><img src={linkImg2} alt="" /></div>
+            <div>瀏覽器</div>
+          </div>
+          <div className="link" onClick={() => this.setState({ comingsoon: true })}>
+            <div className="img-container"><img src={linkImg3} alt="" /></div>
+            <div>寶物商城</div>
+          </div>
+        </div>
+        <div className="links-row">
+          <div className="link" onClick={() => this.handleGoto('/invite')}>
+            <div className="img-container"><img src={linkImg4} alt="" /></div>
+            <div>邀請鏈接</div>
+          </div>
+          <div className="link" onClick={() => this.handleGoto('/subuser')}>
+            <div className="img-container"><img src={linkImg5} alt="" /></div>
+            <div>我的團隊</div>
+          </div>
+          <div className="link" onClick={() => this.handleGoto('/miners')}>
+            <div className="img-container"><img src={linkImg6} alt="" /></div>
+            <div>礦工管理</div>
+          </div>
+        </div>
         <Markets data={prices} />
+        <Drawer
+          placement="top"
+          onClose={() => this.setState({ comingsoon: false })}
+          closable={false}
+          visible={this.state.comingsoon}
+          className="coming-drawer"
+          height={150}
+        >
+          <div>
+            <div className="icon"><span><Icon type="car" /></span></div>
+            <div>敬請期待</div>
+          </div>
+        </Drawer>
       </div>
     );
   }

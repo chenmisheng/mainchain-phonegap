@@ -6,6 +6,7 @@
     align-items: center;
     margin-bottom: 0.1rem;
     justify-content: space-between;
+    background: #43485B;
 
     &:last-child {
       margin-bottom: 0;
@@ -19,24 +20,22 @@
     }
 
     .lv {
-      height: 0.44rem;
-      width: 0.44rem;
-      text-align: center;
-      font-size: 0.12rem;
-      position: relative;
-      margin-right: 0.12rem;
-
       .text {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-weight: 400;
+        display: inline-block;
+        width: 0.4rem;
+        height: 0.4rem;
+        background-image: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
+        border-radius: 0.2rem;
+        line-height: 0.4rem;
+        font-size: 0.16rem;
+        font-weight: 500;
+        color: #fff;
+        text-align: center;
       }
     }
 
     .price {
-      font-size: 0.24rem;
+      font-size: 0.16rem;
     }
   }
 }

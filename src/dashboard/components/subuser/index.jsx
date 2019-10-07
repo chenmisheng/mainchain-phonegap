@@ -10,29 +10,24 @@ import './style.scss';
 class Subuser extends Component {
   render() {
     const { list } = this.props;
+    // const list = [{
+    //   vip_level: 'p1',
+    //   count: 2,
+    // }];
 
     return (
       <div id="subuser" className="container">
         {list.map(item => (
           <div className="item shadow-pad" key={item.vip_level}>
             <div className="lv">
-              <svg xmlns="http://www.w3.org/200/svg" height="44" width="44">
-                <circle cx="22" cy="22" r="20" fill="none" stroke="#ececec" strokeWidth="3" strokeLinecap="round" />
-                <circle
-                  className="demo2"
-                  cx="22"
-                  cy="22"
-                  r="20"
-                  fill="none"
-                  stroke="#953E96"
-                  strokeWidth="3"
-                />
-              </svg>
-              <span className="text"><span>P</span>{parseInt(item.vip_level.slice(1), 10)}</span>
+              <span className="text">{item.vip_level.toUpperCase()}</span>
             </div>
-            <div className="price">{item.count}</div>
+            <div className="price">總人數：{item.count}</div>
           </div>
         ))}
+        {list.length === 0 && (
+          <div style={{ textAlign: 'center', opacity: 0.6 }}>您还没有任何矿工</div>
+        )}
       </div>
     );
   }

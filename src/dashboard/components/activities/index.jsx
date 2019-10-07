@@ -8,7 +8,7 @@ import { Spin, message } from 'antd';
 
 import './style.scss';
 
-import walletBaseImg from '../../../assets/wallet_base.svg';
+import walletBaseImg from '../../../assets/logo-1.png';
 
 class Activities extends Component {
   state = {
@@ -51,7 +51,7 @@ class Activities extends Component {
       <div id="myActivities" className="container">
         {list.map(item => (
           <div className="item" key={item.id}>
-            {/* <img className="logo" src={walletBaseImg} alt="" /> */}
+            <img className="logo" src={walletBaseImg} alt="" />
             <div className="center">
               <div className="txid">{item.title}</div>
               <div className="time">{item.time}</div>
