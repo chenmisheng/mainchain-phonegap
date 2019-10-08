@@ -4,6 +4,7 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
+import { t } from '../common/formattedMessage';
 import './style.scss';
 
 // images
@@ -22,11 +23,11 @@ class Subuser extends Component {
             <div className="lv">
               <span className="text">{item.vip_level.toUpperCase()}</span>
             </div>
-            <div className="price">總人數：{item.count}</div>
+            <div className="price">{t('subuser_total')}{item.count}</div>
           </div>
         ))}
         {list.length === 0 && (
-          <div style={{ textAlign: 'center', opacity: 0.6 }}>您还没有任何矿工</div>
+          <div style={{ textAlign: 'center', opacity: 0.6 }}>{t('subuser_empty')}</div>
         )}
       </div>
     );

@@ -48,15 +48,15 @@ class Buy extends Component {
         </div>
         <div className="center">
           <div className="txid">{product.price} MAIN</div>
-          <div className="time">當前排隊：{product.ranking}</div>
+          <div className="time">{t('buy_item_ranking')}{product.ranking}</div>
         </div>
         <div className="amount">
           {canBuy ? (
-            <div className="select-btn" onClick={() => this.handleShowOrder(product)}>預約</div>
+            <div className="select-btn" onClick={() => this.handleShowOrder(product)}>{t('buy_item_buy')}</div>
           ) : (
-            <div className="select-btn disabled">無法購買</div>
+            <div className="select-btn disabled">{t('buy_item_no_buy')}</div>
           )}
-          <div className="remain">收益：{product.rate} / d</div>
+          <div className="remain">{t('buy_item_remain')}{product.rate} / d</div>
         </div>
       </div>
     ));
@@ -91,7 +91,7 @@ class Buy extends Component {
 
     if (submitting) return;
     if (!checked) {
-      message.error('请同意《MainChain风险提示》');
+      message.error(t('buy_e_1'));
       return;
     }
 
@@ -106,7 +106,7 @@ class Buy extends Component {
         currency: use.toUpperCase(),
       },
       onSuccess: () => {
-        message.success('购买成功');
+        message.success(t('buy_s_1'));
         this.setState({
           submitting: false,
           showOrder: false,
@@ -200,7 +200,7 @@ class Buy extends Component {
               <div className="card">
                 <div className="head">
                   <div className="title">
-                    <div>我的礦機</div>
+                    <div>{t('buy_my_title')}</div>
                     <div className="state">{myMiner.price} MAIN</div>
                   </div>
                   <div className="logo">
@@ -209,13 +209,13 @@ class Buy extends Component {
                 </div>
                 {myMiner.state === 'pending' && (
                   <div className="center">
-                    <div className="time">隊列長度：{myMiner.ranking}</div>
+                    <div className="time">{t('buy_my_ranking')}{myMiner.ranking}</div>
                     <div className="state">{t(`buy_state_${myMiner.state}`)}</div>
                   </div>
                 )}
                 {myMiner.state === 'allowed' && (
                   <div className="center">
-                    <div className="time">總量：{myMiner.price * 2} MAIN</div>
+                    <div className="time">{t('buy_my_total')}{myMiner.price * 2} MAIN</div>
                     <div className="state">{t(`buy_state_${myMiner.state}`)}</div>
                   </div>
                 )}
@@ -224,10 +224,10 @@ class Buy extends Component {
             </div>
           </>
         )}
-        <div className="product-group-title">預約礦機</div>
+        <div className="product-group-title">{t('buy_list_title')}</div>
         {list.products && this.getItemList(list.products)}
         <div style={{ textAlign: 'center', marginTop: 20 }}>
-          <Link to="/orders">查看所有訂單</Link>
+          <Link to="/orders">{t('buy_more')}</Link>
         </div>
         {/* <div className="product-group-title">租赁算力包（无忧挖矿，到期押金全退）</div> */}
         {/* {list.reservation_buy_products && this.getItemList(list.reservation_buy_products)} */}
@@ -259,16 +259,16 @@ class Buy extends Component {
                 </div>
                 <div className="center">
                   <div className="txid">{selected.price} MAIN</div>
-                  <div className="time">當前排隊：{selected.ranking}</div>
+                  <div className="time">{t('buy_order_ranking')}{selected.ranking}</div>
                 </div>
                 <div className="amount check">X 1</div>
               </div>
-              <div className="check"><Checkbox onChange={this.handleCheckChange} checked={checked}>同意</Checkbox><a onClick={() => this.setState({ showTip: true })}>《MainChain风险提示》</a></div>
+              <div className="check"><Checkbox onChange={this.handleCheckChange} checked={checked}>{t('buy_order_check')}</Checkbox><a onClick={() => this.setState({ showTip: true })}>{t('buy_order_check2')}</a></div>
               <div className="submit" onClick={this.handleSubmitOrder}>
                 {submitting ? (
                   <Spin />
                 ) : (
-                  '提交订单'
+                  t('buy_order_submit')
                 )}
               </div>
             </div>

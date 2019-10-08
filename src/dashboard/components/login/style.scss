@@ -25,10 +25,29 @@
 
     button {
       width: 100%;
+      background: linear-gradient(to right bottom, #247BCB 0%, #14CBD2 100%);
+      color: #fff;
     }
   }
 
   .opts {
     text-align: center;
+  }
+
+  .lang-select-container {
+    margin-top: 0.24rem;
+    text-align: center;
+  }
+
+  .lang-select {
+    color: #fff;
+
+    .ant-select-selection {
+      background: transparent;
+    }
+
+    .ant-select-arrow {
+      color: #fff;
+    }
   }
 }

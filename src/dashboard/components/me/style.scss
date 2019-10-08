@@ -98,6 +98,16 @@
     text-align: center;
     opacity: 0.5;
   }
+
+  .lang-select {
+    .ant-select-selection {
+      background: transparent;
+    }
+
+    .ant-select-arrow {
+      color: #fff;
+    }
+  }
 }
 
 #main.me {

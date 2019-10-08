@@ -9,6 +9,7 @@ import Decimal from 'decimal.js-light';
 import { connect } from 'dva';
 import { Spin } from 'antd';
 import message from '../../../utils/message';
+import { t } from '../common/formattedMessage';
 
 import './style.scss';
 
@@ -19,8 +20,6 @@ class Withdraw extends Component {
   state = {
     to: '',
     amount: '',
-    withdraw_password: '',
-    verify_code: '',
   }
 
   componentDidMount() {
@@ -84,18 +83,6 @@ class Withdraw extends Component {
     });
   }
 
-  handleChangeWithdrawPassword = (e) => {
-    this.setState({
-      withdraw_password: e.target.value,
-    });
-  }
-
-  handleChangeVerifyCode = (e) => {
-    this.setState({
-      verify_code: e.target.value,
-    });
-  }
-
   handleScan = () => {
     const { cordova } = window;
     if (cordova && cordova.plugins.barcodeScanner) {
@@ -105,7 +92,7 @@ class Withdraw extends Component {
         formats: 'QR_CODE',
       });
     } else {
-      message.error('初始化相机失败，请手工输入');
+      message.error(t('withdraw_e_1'));
     }
   }
 
@@ -122,7 +109,7 @@ class Withdraw extends Component {
 
   handleSubmit = () => {
     const {
-      to, amount, withdraw_password, verify_code,
+      to, amount,
     } = this.state;
     const { dispatch, match } = this.props;
     let currency;
@@ -134,8 +121,6 @@ class Withdraw extends Component {
       to,
       amount,
       currency: currency.toUpperCase(),
-      withdraw_password,
-      verify_code,
     };
     dispatch({
       type: 'account/submitWithdraw',
@@ -152,7 +137,7 @@ class Withdraw extends Component {
 
   canSubmit() {
     const {
-      to, amount, withdraw_password, verify_code,
+      to, amount,
     } = this.state;
     const { match } = this.props;
     let currency = 'base';
@@ -161,14 +146,14 @@ class Withdraw extends Component {
     }
     if (currency) {
       const fee = this.getFee();
-      return !(to !== '' && amount !== '' && withdraw_password !== '' && verify_code !== '' && new Decimal(amount).greaterThan(new Decimal(fee)));
+      return !(to !== '' && amount !== '' && new Decimal(amount).greaterThan(new Decimal(fee)));
     }
-    return !(to !== '' && amount !== '' && withdraw_password !== '' && verify_code !== '');
+    return !(to !== '' && amount !== '');
   }
 
   render() {
     const {
-      to, amount, withdraw_password, verify_code,
+      to, amount,
     } = this.state;
     const useWallet = this.getUseWallet();
     const { history } = this.props;
@@ -183,46 +168,39 @@ class Withdraw extends Component {
     return (
       <div id="withdraw" className={classnames('container', { usdt: useWallet.unit === 'USDT' })}>
         <div className="banner">
-          <div>可提现余额</div>
+          <div>{t('withdraw_balance')}</div>
           <div>{useWallet.balance} {useWallet.unit}</div>
         </div>
         <div className="form">
           <div className="item">
-            <input type="text" placeholder="提现地址" value={to} onChange={this.handleChangeTo} />
+            <input type="text" placeholder={t('withdraw_form_address')} value={to} onChange={this.handleChangeTo} />
             <img className="scan-btn" src={scanImg} alt="" onClick={this.handleScan} />
           </div>
           <div className="item">
-            <input type="number" placeholder="提现金额" value={amount} onChange={this.handleChangeAmount} />
-          </div>
-          <div className="item">
-            <input type="password" placeholder="提现密码" value={withdraw_password} onChange={this.handleChangeWithdrawPassword} />
-          </div>
-          <div className="item verify">
-            <input type="number" placeholder="手机验证码" value={verify_code} onChange={this.handleChangeVerifyCode} />
-            <a onClick={this.handleSendSms}>发送验证码</a>
+            <input type="number" placeholder={t('withdraw_form_amount')} value={amount} onChange={this.handleChangeAmount} />
           </div>
           <div className="item">
             <div className="form-info auto-height">
-              <div>手续费</div>
+              <div>{t('withdraw_form_fee')}</div>
               <div>{this.getFee()} {useWallet.unit}</div>
             </div>
             <div className="form-info auto-height">
-              <div>到账金额</div>
+              <div>{t('withdraw_form_final')}</div>
               <div>{this.getFinal()} {useWallet.unit}</div>
             </div>
           </div>
           <div className="item">
-            <div className="warn">请确认提现数量满足提现地址账户最低充入数量，如因此造成的资产丢失MainChain不承担任何责任。</div>
+            <div className="warn">{t('withdraw_form_warn')}</div>
             <div className="warn">
-              <div>为保障资金安全，当您账户安全策略变更、密码修改，我们会对提现进行人工审核，请耐心等待工作人员电话或邮件联系。</div>
-              <div>请务必确认手机安全，防止信息被篡改或泄露。</div>
+              <div>{t('withdraw_form_warn2')}</div>
+              <div>{t('withdraw_form_warn3')}</div>
             </div>
           </div>
         </div>
         <div className="submit">
-          <button className="btn" disabled={this.canSubmit()} onClick={this.handleSubmit}>确认提现</button>
+          <button className="btn" disabled={this.canSubmit()} onClick={this.handleSubmit}>{t('withdraw_form_submit')}</button>
         </div>
-        <div className="page-title">提现历史</div>
+        <div className="page-title">{t('withdraw_history')}</div>
         <div className="history">
           {history === 'LOADING' ? (
             <div className="loading">
@@ -232,7 +210,7 @@ class Withdraw extends Component {
             history.map((item, i) => (
               <div className="item shadow-pad" key={item.type + i}>
                 <div className="center">
-                  <div className="txid">{item.txid || '等待中'}</div>
+                  <div className="txid">{item.txid || t('withdraw_waiting')}</div>
                   <div className="time">{item.created_at}</div>
                 </div>
                 <div className="amount">

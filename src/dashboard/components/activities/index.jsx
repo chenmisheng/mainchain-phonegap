@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
 import { Spin, message } from 'antd';
+import { t } from '../common/formattedMessage';
 
 import './style.scss';
 
@@ -62,7 +63,7 @@ class Activities extends Component {
         {loading ? (
           <div className="my-loading"><Spin /></div>
         ) : (
-          <div className="btn" onClick={this.handleShowNextPage}><a>显示更多</a></div>
+          <div className="btn" onClick={this.handleShowNextPage}><a>{t('activities_more')}</a></div>
         )}
       </div>
     );

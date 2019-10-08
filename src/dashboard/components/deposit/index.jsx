@@ -10,6 +10,7 @@ import { Spin } from 'antd';
 import Qrcode from '../common/qrcode';
 import message from '../../../utils/message';
 import saveImage from '../../../utils/saveImage';
+import FormattedMessage, { t } from '../common/formattedMessage';
 import './style.scss';
 
 import walletBaseImg from '../../../assets/wallet_base.svg';
@@ -63,16 +64,10 @@ class Deposit extends Component {
   handleSaveImage = () => {
     const { url } = this.state;
     saveImage(url, () => {
-      message.success('已成功保存到相册');
+      message.success(t('deposit_s_1'));
     }, () => {
-      message.error('您的手机不支持自动保存到相册，请手动截屏');
+      message.error(t('deposit_e_1'));
     });
-  }
-
-  handleOpenBitrabbit = () => {
-    if (window.cordova) {
-      window.cordova.InAppBrowser.open('https://bitrabbit.io', '_system', 'location=yes');
-    }
   }
 
   render() {
@@ -93,11 +88,14 @@ class Deposit extends Component {
           {useWallet.address && (
             <div className="qrcode"><Qrcode data={useWallet.address} option={{ height: 250, width: 250, margin: 2 }} onUrlChange={this.handleUrlChange} /></div>
           )}
-          <div className="btn" onClick={this.handleSaveImage}>保存二维码</div>
+          <div className="btn" onClick={this.handleSaveImage}>{t('deposit_save_qr')}</div>
           <div className="address clipboard-target" data-clipboard-text={useWallet.address}>{useWallet.address}</div>
         </div>
-        <div className="shadow-pad">{useWallet.unit}转入有时交易所会扣除额外手续费，请务必确定好数量后再转入，请勿向MainChain{useWallet.unit}地址充值任何非{useWallet.unit === 'USDT' ? 'OMNI网络的' : ''}{useWallet.unit}资产。</div>
-        <div className="page-title">充提历史</div>
+        {useWallet.unit === 'USDT' && (
+          <div className="shadow-pad">{t('deposit_usdt')}</div>
+        )}
+        <div className="shadow-pad"><FormattedMessage id="deposit_info" data={{ unit: useWallet.unit }} /></div>
+        <div className="page-title">{t('deposit_history')}</div>
         <div className="history">
           {history === 'LOADING' ? (
             <div className="loading">
@@ -108,7 +106,7 @@ class Deposit extends Component {
               <div className="item shadow-pad" key={item.type + i}>
                 <img className="logo" src={useWallet.logo} alt="" />
                 <div className="center">
-                  <div className="txid">{item.txid || '等待中'}</div>
+                  <div className="txid">{item.txid || t('deposit_waiting')}</div>
                   <div className="time">{item.created_at}</div>
                 </div>
                 <div className="amount">

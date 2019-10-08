@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+import { t } from '../../components/common/formattedMessage';
 
 // images
 import homeImg from '../../../assets/m_home.svg';
@@ -20,33 +21,33 @@ import './style.scss';
 
 class Footer extends Component {
   render() {
-    const { config } = this.props;
+    const { config, forceUpdate } = this.props;
     const { activeNav } = config;
 
     return (
-      <footer className={classnames({ hide: activeNav === undefined })}>
+      <footer className={classnames({ hide: activeNav === undefined })} data-force={forceUpdate}>
         <div className={classnames('item', { active: activeNav === 0 })}>
           <Link to="/">
             <span><img src={homeActiveImg} alt="" /></span>
-            <span>首页</span>
+            <span>{t('footer_1')}</span>
           </Link>
         </div>
         <div className={classnames('item', { active: activeNav === 3 })}>
           <Link to="/wallet">
             <span><img src={walletActiveImg} alt="" /></span>
-            <span>钱包</span>
+            <span>{t('footer_2')}</span>
           </Link>
         </div>
         <div className={classnames('item', { active: activeNav === 1 })}>
           <Link to="/buy">
             <span><img src={powerActiveImg} alt="" /></span>
-            <span>礦機</span>
+            <span>{t('footer_3')}</span>
           </Link>
         </div>
         <div className={classnames('item', { active: activeNav === 4 })}>
           <Link to="/me">
             <span><img src={meActiveImg} alt="" /></span>
-            <span>我的</span>
+            <span>{t('footer_4')}</span>
           </Link>
         </div>
         {/* <div className={classnames('item', { active: activeNav === 2 })}>
@@ -74,6 +75,7 @@ function mapStateToProps({ utils }) {
   return {
     currentPath: utils.currentPath,
     config: utils.currentPathConfig.footer || {},
+    forceUpdate: utils.forceUpdate,
   };
 }
 

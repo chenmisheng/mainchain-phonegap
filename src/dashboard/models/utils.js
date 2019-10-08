@@ -266,6 +266,7 @@ const pathConfigs = {
 export default {
   namespace: 'utils',
   state: {
+    forceUpdate: new Date().getTime(),
     history: null,
     currentPath: '',
     currentPathConfig: {},
@@ -443,6 +444,7 @@ export default {
           payload: {
             i18n,
             locale: payload,
+            forceUpdate: new Date().getTime(),
           },
         });
       }

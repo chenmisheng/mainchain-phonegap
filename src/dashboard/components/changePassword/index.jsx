@@ -8,6 +8,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Decimal from 'decimal.js-light';
 import { connect } from 'dva';
+import { t } from '../common/formattedMessage';
 import message from '../../../utils/message';
 
 import scanImg from '../../../assets/withdraw_scan.svg';
@@ -30,7 +31,7 @@ class ChangePassword extends Component {
     } = this.state;
     const { dispatch } = this.props;
     if (password !== password_confirmation) {
-      message.error('两次输入密码不一致');
+      message.error(t('changePassword_e_1'));
       return;
     }
     const payload = {
@@ -66,17 +67,17 @@ class ChangePassword extends Component {
       <div id="signup" className="container">
         <div className="form">
           <div className="item">
-            <input type="password" placeholder="旧密码" value={old_password} onChange={this.handleChange.bind(this, 'old_password')} />
+            <input type="password" placeholder={t('changePassword_form_old_pass')} value={old_password} onChange={this.handleChange.bind(this, 'old_password')} />
           </div>
           <div className="item">
-            <input type="password" placeholder="密码（8-20位数字或字母）" value={password} onChange={this.handleChange.bind(this, 'password')} />
+            <input type="password" placeholder={t('changePassword_form_pass')} value={password} onChange={this.handleChange.bind(this, 'password')} />
           </div>
           <div className="item">
-            <input type="password" placeholder="确认密码" value={password_confirmation} onChange={this.handleChange.bind(this, 'password_confirmation')} />
+            <input type="password" placeholder={t('changePassword_form_pass2')} value={password_confirmation} onChange={this.handleChange.bind(this, 'password_confirmation')} />
           </div>
         </div>
         <div className="submit">
-          <button className="btn" disabled={!this.canSubmit()} onClick={this.handleSubmit}>修改密码</button>
+          <button className="btn" disabled={!this.canSubmit()} onClick={this.handleSubmit}>{t('changePassword_form_submit')}</button>
         </div>
       </div>
     );

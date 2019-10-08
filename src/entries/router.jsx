@@ -92,7 +92,6 @@ class MyRouter extends Component {
 }
 
 function mapStateToProps() {
-  return {};
 }
 
 const MyRouterWrapper = connect(mapStateToProps)(MyRouter);

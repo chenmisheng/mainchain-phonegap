@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
 import Qrcode from '../common/qrcode';
+import { t } from '../common/formattedMessage';
 
 import './style.scss';
 
@@ -24,9 +25,9 @@ class Invite extends Component {
         <div className="qrcode">
           <Qrcode data={url} option={{ height: 250, width: 250, margin: 2 }} />
         </div>
-        <div className="code">邀请码：{userInfo.invite_code}</div>
+        <div className="code">{t('invite_code')}{userInfo.invite_code}</div>
         <div className="url">{url}</div>
-        <div className="btn clipboard-target" data-clipboard-text={url}>点击复制链接</div>
+        <div className="btn clipboard-target" data-clipboard-text={url}>{t('invite_copy')}</div>
       </div>
     );
   }

@@ -1,6 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
 import { connect } from 'dva';
 import React, { Component } from 'react';
+import { Select } from 'antd';
 import logoImg from '../../../assets/logo-1.png';
 import message from '../../../utils/message';
 import vibration from '../../../utils/vibration';
@@ -47,6 +48,14 @@ class NormalLoginForm extends Component {
     });
   }
 
+  handleChangeLocale = (e) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'utils/changeLocale',
+      payload: e,
+    });
+  }
+
   handleGoto(goto) {
     const { dispatch } = this.props;
     dispatch({
@@ -56,6 +65,7 @@ class NormalLoginForm extends Component {
   }
 
   render() {
+    const { locale } = this.props;
     const { login, password } = this.state;
 
     return (
@@ -76,6 +86,13 @@ class NormalLoginForm extends Component {
           <div><a onClick={this.handleGoto.bind(this, '/forgetPassword')}>{t('login_forgot_pass')}</a></div>
           <div>{t('login_nopass')}<a onClick={this.handleGoto.bind(this, '/signup')}>{t('login_signup')}</a></div>
         </div>
+        <div className="lang-select-container">
+          <Select onChange={this.handleChangeLocale} style={{ width: 120 }} value={locale} className="lang-select" size="small">
+            <Select.Option value="zh-tw">繁體中文</Select.Option>
+            <Select.Option value="en">English</Select.Option>
+            <Select.Option value="ja">日本語</Select.Option>
+          </Select>
+        </div>
       </div>
     );
   }
@@ -83,7 +100,7 @@ class NormalLoginForm extends Component {
 
 function mapStateToProps({ utils }) {
   return {
-    test: utils.test,
+    locale: utils.locale,
   };
 }
 

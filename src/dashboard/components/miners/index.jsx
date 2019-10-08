@@ -4,6 +4,8 @@
 import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
+import { Link } from 'dva/router';
+import { t } from '../common/formattedMessage';
 import './style.scss';
 
 import walletBaseImg from '../../../assets/logo-1.png';
@@ -16,10 +18,13 @@ class Invite extends Component {
     return (
       <div id="miners" className="container">
         <div className="banner">
-          <div className="title">矿工贡献</div>
+          <div className="title">{t('miners_remain')}</div>
           <div className="value">{total} MAIN</div>
         </div>
-        <div className="page-title">挖矿奖励</div>
+        <div style={{ textAlign: 'center', marginTop: '0.06rem' }}>
+          <Link to="/subuser">{t('miners_link')}</Link>
+        </div>
+        <div className="page-title">{t('miners_list_title')}</div>
         {list.map(item => (
           <div className="item shadow-pad" key={item.id}>
             <img className="logo" src={walletBaseImg} alt="" />

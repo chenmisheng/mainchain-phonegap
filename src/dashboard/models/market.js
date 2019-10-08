@@ -27,6 +27,10 @@ export default cleanStateModel({
         cny: 0,
         usdt: 0,
       },
+      main: {
+        cny: 0,
+        usdt: 0,
+      },
       // usdt: {
       //   cny: 0,
       //   usdt: 0,
@@ -52,6 +56,7 @@ export default cleanStateModel({
         const def = { ticker: { last_cny: 0, last_usdt: 0 } };
         const btc = d.filter(t => t.name === 'BTC/USDT')[0] || def;
         const eth = d.filter(t => t.name === 'ETH/USDT')[0] || def;
+        const main = d.filter(t => t.name === 'MAIN/ETH')[0] || def;
         const prices = {
           btc: {
             cny: btc.ticker.last_cny,
@@ -60,6 +65,10 @@ export default cleanStateModel({
           eth: {
             cny: eth.ticker.last_cny,
             usdt: eth.ticker.last_usdt,
+          },
+          main: {
+            cny: main.ticker.last_cny,
+            usdt: main.ticker.last_usdt,
           },
           // usdt: {
           //   cny: d.usdt,

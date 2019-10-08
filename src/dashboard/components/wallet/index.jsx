@@ -6,6 +6,7 @@ import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Spin, Icon } from 'antd';
 import AutoFontSizeDiv from '../common/autoFontSizeDiv';
+import { t } from '../common/formattedMessage';
 import './style.scss';
 
 // images
@@ -90,7 +91,7 @@ class Wallet extends Component {
         </div>
         <div className="card-container">
           <div className={classnames('card', { usdt: use === 'usdt' })}>
-            <div className="top">可用余额</div>
+            <div className="top">{t('wallet_balance')}</div>
             <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.balance}</AutoFontSizeDiv>
             {/* <div className="value">
               <span>
@@ -104,7 +105,7 @@ class Wallet extends Component {
           </div>
           {use === 'main' && (
             <div className="card">
-              <div className="top">锁定余额</div>
+              <div className="top">{t('wallet_locked')}</div>
               <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</AutoFontSizeDiv>
               {/* <div className="value">
                 <span>
@@ -118,43 +119,15 @@ class Wallet extends Component {
             </div>
           )}
         </div>
-        {useWallet.block && (
-          <div className="info shadow-pad">
-            <div className="row">
-              <div className="me">
-                <div className="key">{useWallet.power}T</div>
-                <div className="value">我的{useWallet.unit}算力</div>
-              </div>
-              <div className="block">
-                <div className="key">{useWallet.block.hashRate}</div>
-                <div className="value">{useWallet.unit}全网算力</div>
-              </div>
-            </div>
-            <div className="row">
-              <div className="me">
-                <div className="key">{useWallet.earnings} {useWallet.unit}</div>
-                <div className="value">我的{useWallet.unit}矿池收益</div>
-              </div>
-              <div className="block">
-                <div className="key">{useWallet.block.difficulty}</div>
-                <div className="value">{useWallet.unit}全网难度</div>
-              </div>
-            </div>
-          </div>
-        )}
         <div className="opt">
-          <Link className="opt-btn" to={`/deposit/${use}`}>
-            充值
-          </Link>
-          <Link className="opt-btn" to={`/withdraw/${use}`}>
-            提现
-          </Link>
+          <Link className="opt-btn" to={`/deposit/${use}`}>{t('wallet_deposit')}</Link>
+          <Link className="opt-btn" to={`/withdraw/${use}`}>{t('wallet_withdraws')}</Link>
           {/* <Link className="opt-btn" to={`/transfer/${use}`}>
             转账
           </Link> */}
         </div>
         <div className="big-container">
-          <Link className="big" to="/buy"><Icon type="transaction" /> <span>預約礦機</span></Link>
+          <Link className="big" to="/buy"><Icon type="transaction" /> <span>{t('wallet_buy')}</span></Link>
         </div>
       </div>
     );

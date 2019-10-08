@@ -28,6 +28,8 @@ import linkImg3 from '../../../assets/indexIcon/3.svg';
 import linkImg4 from '../../../assets/indexIcon/4.svg';
 import linkImg5 from '../../../assets/indexIcon/5.svg';
 import linkImg6 from '../../../assets/indexIcon/6.svg';
+import linkImg7 from '../../../assets/indexIcon/7.svg';
+import linkImg8 from '../../../assets/indexIcon/8.svg';
 
 function openWhitepaper() {
   openWindow('https://mainchainproject.com/whitepaper.pdf');
@@ -138,6 +140,9 @@ class Index extends Component {
             ))}
           </Carousel>
         </div>
+        {notices.length > 0 && (
+          <div className="notice shadow-pad" onClick={this.handleClickNotice}><Icon type="notification" /> {notices[point].title}</div>
+        )}
         <div className="pad shadow-pad">
           <div className="pad-header">
             <div className="name">{t('index_yesterday')}</div>
@@ -154,37 +159,34 @@ class Index extends Component {
               <div>{useWallet.total} {useWallet.name}</div>
             </div> */}
           </div>
-          <Link className="link" to="/activities">查看所有獎勵</Link>
+          <Link className="link" to="/activities">{t('index_activities')}</Link>
         </div>
-        {notices.length > 0 && (
-          <div className="notice shadow-pad" onClick={this.handleClickNotice}><Icon type="notification" /> {notices[point].title}</div>
-        )}
         <div className="links-row">
           <div className="link" onClick={openWhitepaper}>
             <div className="img-container"><img src={linkImg1} alt="" /></div>
-            <div>白皮書</div>
+            <div>{t('index_icon_1')}</div>
           </div>
           <div className="link" onClick={() => this.setState({ comingsoon: true })}>
             <div className="img-container"><img src={linkImg2} alt="" /></div>
-            <div>瀏覽器</div>
+            <div>{t('index_icon_2')}</div>
           </div>
-          <div className="link" onClick={() => this.setState({ comingsoon: true })}>
-            <div className="img-container"><img src={linkImg3} alt="" /></div>
-            <div>寶物商城</div>
+          <div className="link" onClick={() => this.handleGoto('/notice')}>
+            <div className="img-container"><img src={linkImg8} alt="" /></div>
+            <div>{t('index_icon_8')}</div>
           </div>
         </div>
         <div className="links-row">
-          <div className="link" onClick={() => this.handleGoto('/invite')}>
-            <div className="img-container"><img src={linkImg4} alt="" /></div>
-            <div>邀請鏈接</div>
+          <div className="link" onClick={() => this.setState({ comingsoon: true })}>
+            <div className="img-container"><img src={linkImg7} alt="" /></div>
+            <div>{t('index_icon_7')}</div>
           </div>
-          <div className="link" onClick={() => this.handleGoto('/subuser')}>
-            <div className="img-container"><img src={linkImg5} alt="" /></div>
-            <div>我的團隊</div>
+          <div className="link" onClick={() => this.setState({ comingsoon: true })}>
+            <div className="img-container"><img src={linkImg3} alt="" /></div>
+            <div>{t('index_icon_3')}</div>
           </div>
           <div className="link" onClick={() => this.handleGoto('/miners')}>
             <div className="img-container"><img src={linkImg6} alt="" /></div>
-            <div>礦工管理</div>
+            <div>{t('index_icon_6')}</div>
           </div>
         </div>
         <Markets data={prices} />
@@ -198,7 +200,7 @@ class Index extends Component {
         >
           <div>
             <div className="icon"><span><Icon type="car" /></span></div>
-            <div>敬請期待</div>
+            <div>{t('index_coming')}</div>
           </div>
         </Drawer>
       </div>

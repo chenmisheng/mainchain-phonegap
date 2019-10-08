@@ -7,6 +7,7 @@ import Decimal from 'decimal.js-light';
 import { connect } from 'dva';
 import { Spin, Input, Button, Popconfirm } from 'antd';
 import { Link } from 'dva/router';
+import { t } from '../common/formattedMessage';
 import message from '../../../utils/message';
 
 import './style.scss';
@@ -29,22 +30,10 @@ class Order extends Component {
         </div>
         <div className="center">
           <div className="txid">{product.price} MAIN</div>
-          <div className="time">购买时间：{product.created_at}</div>
-          <div className="time">到期时间：{product.end_at}</div>
+          <div className="time">{t('order_create_time')}{product.created_at}</div>
+          <div className="time">{t('order_exp_time')}{product.end_at}</div>
         </div>
-        <div className="amount">
-          {continueList.indexOf(product.product_type) > -1 && product.can_continue && (
-            <Popconfirm
-              placement="left"
-              title="确认续租此产品？"
-              onConfirm={this.handleContinue.bind(this, product)}
-              okText="确认"
-              cancelText="取消"
-            >
-              <Button type="primary" className="continue-btn">一键续租</Button>
-            </Popconfirm>
-          )}
-        </div>
+        <div className="amount"></div>
       </div>
     ));
   }
@@ -63,7 +52,7 @@ class Order extends Component {
     return (
       <div id="order" className="container">
         {orders.length === 0 && (
-          <div style={{ textAlign: 'center' }}>暂无订单</div>
+          <div style={{ textAlign: 'center' }}>{t('order_empty')}</div>
         )}
         {this.getItemList(list)}
       </div>
