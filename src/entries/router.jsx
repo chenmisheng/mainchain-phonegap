@@ -31,7 +31,7 @@ import Post from '../dashboard/components/post';
 import Order from '../dashboard/components/order';
 import ChangePassword from '../dashboard/components/changePassword';
 import ChangeWithdrawPassword from '../dashboard/components/changeWithdrawPassword';
-import About from '../dashboard/components/about';
+// import About from '../dashboard/components/about';
 import Transfer from '../dashboard/components/transfer';
 // import NoMatchPage from '../dashboard/components/noMatchPage';
 
@@ -80,7 +80,7 @@ class MyRouter extends Component {
           <AnimeRoute path="/orders" exact component={Order} />
           <AnimeRoute path="/changePassword" exact component={ChangePassword} />
           <AnimeRoute path="/changeWithdrawPassword" exact component={ChangeWithdrawPassword} />
-          <AnimeRoute path="/about" exact component={About} />
+          {/* <AnimeRoute path="/about" exact component={About} /> */}
           {/* <Route component={NoMatchPage} /> */}
           <Footer />
           <Upgrade />
