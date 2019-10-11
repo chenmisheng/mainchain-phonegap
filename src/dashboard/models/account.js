@@ -1,10 +1,12 @@
 import { routerRedux } from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
+import { Modal } from 'antd';
 import message from '../../utils/message';
 import fetch from '../../utils/fetch';
 import jwt from '../../utils/jwt';
 import QUERYS from '../querys';
 import cleanStateModel from '../../utils/cleanState';
+import { t } from '../components/common/formattedMessage';
 
 const login = data => fetch.post(QUERYS.LOGIN, data);
 const logout = () => fetch.private.delete(QUERYS.LOGIN);
@@ -37,6 +39,7 @@ function sedoRandom(seed) {
 export default cleanStateModel({
   namespace: 'account',
   state: {
+    userInfoQueryed: false,
     member_token: undefined,
     userInfo: {},
     account: {},
@@ -102,13 +105,22 @@ export default cleanStateModel({
         });
       }
     },
-    * queryMy(_, { call, put }) {
+    * queryMy(_, { call, put, select }) {
+      const { userInfoQueryed } = yield select(({ account }) => account);
       const data = yield call(queryMy);
       if (data.success) {
+        if (!userInfoQueryed && !data.data.phone_number) {
+          // 首次没手机提示
+          Modal.warning({
+            title: t('no_phone_title'),
+            content: t('no_phone_title_desc'),
+          });
+        }
         yield put({
           type: 'updateState',
           payload: {
             userInfo: data.data,
+            userInfoQueryed: true,
           },
         });
       }

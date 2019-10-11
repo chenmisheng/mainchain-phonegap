@@ -25,7 +25,6 @@ class Invite extends Component {
         <div className="qrcode">
           <Qrcode data={url} option={{ height: 250, width: 250, margin: 2 }} />
         </div>
-        <div className="code">{t('invite_code')}{userInfo.invite_code}</div>
         <div className="url">{url}</div>
         <div className="btn clipboard-target" data-clipboard-text={url}>{t('invite_copy')}</div>
       </div>

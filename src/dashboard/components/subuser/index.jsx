@@ -23,7 +23,11 @@ class Subuser extends Component {
             <div className="lv">
               <span className="text">{item.vip_level.toUpperCase()}</span>
             </div>
-            <div className="price">{t('subuser_total')}{item.count}</div>
+            <div className="name">{item.nickname}</div>
+            <div className="info">
+              <div>{t('subuser_order_amount')}: {item.order_amount} MAIN</div>
+              <div>{t('subuser_team_amount')}: {item.team_amount} MAIN</div>
+            </div>
           </div>
         ))}
         {list.length === 0 && (

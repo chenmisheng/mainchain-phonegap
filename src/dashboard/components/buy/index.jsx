@@ -6,7 +6,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import Decimal from 'decimal.js-light';
 import { connect } from 'dva';
-import { Spin, Input, Checkbox } from 'antd';
+import { Spin, Input, Checkbox, Radio } from 'antd';
 import { Link } from 'dva/router';
 import message from '../../../utils/message';
 import FormattedMessage, { t } from '../common/formattedMessage';
@@ -39,6 +39,7 @@ class Buy extends Component {
   }
 
   getItemList(list) {
+    const { use } = this.state;
     const canBuy = this.props.list.can_buy;
 
     return list.map(product => (
@@ -47,7 +48,7 @@ class Buy extends Component {
           <span>{product.vip_level.toUpperCase()}</span>
         </div>
         <div className="center">
-          <div className="txid">{product.price} MAIN</div>
+          <div className="txid">{use === 'main' ? product.price : product.usdt_price} {use.toUpperCase()}</div>
           <div className="time">{t('buy_item_ranking')}{product.ranking}</div>
         </div>
         <div className="amount">
@@ -176,7 +177,7 @@ class Buy extends Component {
   render() {
     const { list, myMiner } = this.props;
     const {
-      showOrder, selected, submitting, checked, showTip,
+      showOrder, selected, submitting, checked, showTip, use,
     } = this.state;
     console.log(list);
 
@@ -224,7 +225,13 @@ class Buy extends Component {
             </div>
           </>
         )}
-        <div className="product-group-title">{t('buy_list_title')}</div>
+        <div className="product-group-title">
+          {t('buy_list_title')}
+          <Radio.Group value={use} size="small" onChange={e => this.setState({ use: e.target.value })}>
+            <Radio.Button value="main">MAIN</Radio.Button>
+            <Radio.Button value="usdt">USDT</Radio.Button>
+          </Radio.Group>
+        </div>
         {list.products && this.getItemList(list.products)}
         <div style={{ textAlign: 'center', marginTop: 20 }}>
           <Link to="/orders">{t('buy_more')}</Link>
@@ -258,7 +265,7 @@ class Buy extends Component {
                   <span>{selected.vip_level.toUpperCase()}</span>
                 </div>
                 <div className="center">
-                  <div className="txid">{selected.price} MAIN</div>
+                  <div className="txid">{use === 'main' ? selected.price : selected.usdt_price} {use.toUpperCase()}</div>
                   <div className="time">{t('buy_order_ranking')}{selected.ranking}</div>
                 </div>
                 <div className="amount check">X 1</div>

@@ -54,22 +54,22 @@ class Me extends Component {
             <div><span className="icon"><img src={linkImg1} alt="" /></span> <span>钱包设置</span></div>
             <div className="goto" />
           </Link> */}
+          <Link to="/me" className="link">
+            <div><span className="icon"><img src={linkImg9} alt="" /></span> <span>{t('me_link_9')}</span></div>
+            <div className="clipboard-target highlight" data-clipboard-text={userInfo.invite_code}>{userInfo.invite_code}</div>
+          </Link>
           <Link to="/changePassword" className="link">
             <div><span className="icon"><img src={linkImg2} alt="" /></span> <span>{t('me_link_2')}</span></div>
             <div className="goto" />
           </Link>
-          {/* <Link to="/me" className="link">
+          <Link to="/phone" className="link">
             <div><span className="icon"><img src={linkImg5} alt="" /></span> <span>綁定手機</span></div>
             <div className="goto" />
-          </Link> */}
+          </Link>
           {/* <Link to="/about" className="link">
             <div><span className="icon"><img src={linkImg3} alt="" /></span> <span>关于我们</span></div>
             <div className="goto" />
           </Link> */}
-          <Link to="/invite" className="link">
-            <div><span className="icon"><img src={linkImg9} alt="" /></span> <span>{t('me_link_9')}</span></div>
-            <div className="goto" />
-          </Link>
           <Link to="/post/qa" className="link">
             <div><span className="icon"><img src={linkImg4} alt="" /></span> <span>{t('me_link_4')}</span></div>
             <div className="goto" />

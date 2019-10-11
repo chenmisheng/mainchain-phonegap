@@ -1,6 +1,6 @@
 import { routerRedux } from 'dva/router';
 import pathToRegexp from 'path-to-regexp';
-import message from '../../utils/message';
+import { message } from 'antd';
 import fetch from '../../utils/fetch';
 import QUERYS from '../querys';
 import I18N from './i18n';
@@ -9,6 +9,7 @@ const { $ } = window;
 
 const sendSms = data => fetch.post(QUERYS.SEND_SMS, data);
 const sendResetSms = data => fetch.post(QUERYS.SEND_FORGET_SMS, data);
+const bindPhone = data => fetch.private.post(QUERYS.BIND_PHONE, data);
 const signup = data => fetch.post(QUERYS.SIGNUP, data);
 const resetPassword = data => fetch.post(QUERYS.RESET_PASSWORD, data);
 const queryBanners = () => fetch.get(QUERYS.QUERY_BANNERS);
@@ -47,7 +48,7 @@ const pathConfigs = {
   },
   '/power': {
     header: {
-      title: '我的邀请',
+      title: '我的邀請',
       icon: {
         left: 'back',
       },
@@ -64,7 +65,7 @@ const pathConfigs = {
   },
   '/buy': {
     header: {
-      title: '购买算力',
+      title: '購買算力',
     },
     footer: {
       activeNav: 1,
@@ -79,7 +80,7 @@ const pathConfigs = {
   },
   '/wallet': {
     header: {
-      title: '钱包',
+      title: '錢包',
     },
     footer: {
       activeNav: 3,
@@ -118,7 +119,7 @@ const pathConfigs = {
   },
   '/activities': {
     header: {
-      title: '领取记录',
+      title: '領取記錄',
       icon: {
         left: 'back',
       },
@@ -130,7 +131,7 @@ const pathConfigs = {
   },
   '/invite': {
     header: {
-      title: '邀请好友',
+      title: 'APP下載',
       icon: {
         left: 'back',
       },
@@ -141,7 +142,7 @@ const pathConfigs = {
   },
   '/miners': {
     header: {
-      title: '矿工管理',
+      title: '礦工管理',
       icon: {
         left: 'back',
       },
@@ -176,7 +177,7 @@ const pathConfigs = {
   },
   '/withdraw/:currency': {
     header: {
-      title: '提现',
+      title: '提現',
       icon: {
         left: 'back',
       },
@@ -189,7 +190,7 @@ const pathConfigs = {
   },
   '/transfer/:currency': {
     header: {
-      title: '转账',
+      title: '轉賬',
       icon: {
         left: 'back',
       },
@@ -202,7 +203,7 @@ const pathConfigs = {
   },
   '/signup': {
     header: {
-      title: '注册',
+      title: '註冊',
       icon: {
         left: 'back',
       },
@@ -210,12 +211,12 @@ const pathConfigs = {
   },
   '/login': {
     header: {
-      title: '登录账户',
+      title: '登錄賬戶',
     },
   },
   '/forgetPassword': {
     header: {
-      title: '重置密码',
+      title: '重置密碼',
       icon: {
         left: 'back',
       },
@@ -231,7 +232,7 @@ const pathConfigs = {
   },
   '/orders': {
     header: {
-      title: '我的订单',
+      title: '我的訂單',
       icon: {
         left: 'back',
       },
@@ -242,7 +243,7 @@ const pathConfigs = {
   },
   '/changePassword': {
     header: {
-      title: '修改密码',
+      title: '修改密碼',
       icon: {
         left: 'back',
       },
@@ -250,7 +251,7 @@ const pathConfigs = {
   },
   '/changeWithdrawPassword': {
     header: {
-      title: '修改提现密码',
+      title: '修改提現密碼',
       icon: {
         left: 'back',
       },
@@ -259,6 +260,14 @@ const pathConfigs = {
   '/about': {
     header: {
       title: '',
+    },
+  },
+  '/phone': {
+    header: {
+      title: '綁定手機',
+      icon: {
+        left: 'back',
+      },
     },
   },
 };
@@ -336,12 +345,12 @@ export default {
       yield put({
         type: 'utils/loading',
         loading: {
-          text: '发送中',
+          text: '發送中',
         },
       });
       const data = yield call(sendSms, payload);
       if (data.success) {
-        message.success('已发送，请查看手机');
+        message.success('已發送，請查看手機');
         if (onSuccess) onSuccess();
       }
       yield put({
@@ -353,12 +362,12 @@ export default {
       yield put({
         type: 'utils/loading',
         loading: {
-          text: '发送中',
+          text: '發送中',
         },
       });
       const data = yield call(sendResetSms, payload);
       if (data.success) {
-        message.success('已发送，请查看手机');
+        message.success('已發送，請查看手機');
         if (onSuccess) onSuccess();
       }
       yield put({
@@ -370,12 +379,12 @@ export default {
       yield put({
         type: 'utils/loading',
         loading: {
-          text: '注册中',
+          text: '註冊中',
         },
       });
       const data = yield call(signup, payload);
       if (data.success) {
-        message.success('注册成功，请登录');
+        message.success('註冊成功，請登錄');
         yield put({
           type: 'utils/goto',
           goto: '/login',
@@ -389,7 +398,7 @@ export default {
     * resetPassword({ payload }, { call, put }) {
       const data = yield call(resetPassword, payload);
       if (data.success) {
-        message.success('重置密码成功，请登录');
+        message.success('重置密碼成功，請登錄');
         yield put({
           type: 'utils/goto',
           goto: '/login',
@@ -435,7 +444,7 @@ export default {
       if (origin === payload) return;
       const i18n = I18N[payload];
       if (i18n) {
-        // 一些全局变量以及LocalStorage
+        // 一些全局變量以及LocalStorage
         window.locale = payload;
         window.i18n = i18n;
         window.localStorage.setItem('MAIN_LOCAL', payload);
@@ -461,6 +470,17 @@ export default {
           serverEmail: window.localStorage.getItem('MAIN_SERVER_EMAIL'),
         },
       });
+    },
+    * bindPhone({ payload }, { call, put }) {
+      const data = yield call(bindPhone, payload);
+
+      if (data.success) {
+        message.success('綁定成功');
+        yield put({
+          type: 'goto',
+          goto: '/me',
+        });
+      }
     },
   },
   reducers: {

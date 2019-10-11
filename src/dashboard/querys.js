@@ -20,7 +20,7 @@ const QUERYS = {
   QUERY_NOTICE: '/api/v1/notices.json',
   QUERY_SUB_USER: '/api/v1/my/sub_users.json',
   COLLECT: id => `/api/v1/activities/${id}/collect.json`,
-  SEND_SMS: '/api/v1/sms.json',
+  SEND_SMS: '/api/v1/sms/bind.json',
   SEND_FORGET_SMS: '/api/v1/sms/reset_password.json',
   SIGNUP: '/api/v1/users.json',
   RESET_PASSWORD: '/api/v1/reset_password.json',
@@ -30,6 +30,7 @@ const QUERYS = {
   CHANGE_PASSWORD: '/api/v1/passwords/login.json',
   CHANGE_WITHDRAW_PASSWORD: '/api/v1/passwords/withdraw.json',
   EXP: '/api/v1/orders/experience.json',
+  BIND_PHONE: '/api/v1/users/bind_phone_number.json',
 };
 
 const { DOMAIN: domain } = config;

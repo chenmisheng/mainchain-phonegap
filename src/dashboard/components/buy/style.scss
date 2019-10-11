@@ -13,6 +13,21 @@
     margin: 0.2rem 0;
     font-size: 0.14rem;
     font-weight: 400;
+
+    .ant-radio-group {
+      float: right;
+
+      .ant-radio-button-wrapper {
+        background: transparent;
+        border-color: #2aa2cd;
+        color: #2aa2cd;
+
+        &.ant-radio-button-wrapper-checked {
+          background: #2aa2cd;
+          color: #fff;
+        }
+      }
+    }
   }
 
   .shadow-pad {

@@ -1,4 +1,6 @@
 {
+  "no_phone_title": "あなたは電話に縛られていません",
+  "no_phone_title_desc": "[MY]メニューに移動して電話をバインドしてください。そうしないと、パスワードを取得できません。",
   "footer_1": "ホーム",
   "footer_2": "ウォレット",
   "footer_3": "ミネラルマシン",
@@ -49,7 +51,7 @@
   "me_link_6":  "APPダウンロード",
   "me_link_7": "バージョン",
   "me_link_8": "サービスメール",
-  "me_link_9": "招待",
+  "me_link_9": "招待コード",
   "me_link_10":  "言語",
   "me_logout": "ログアウト",
   "miners_remain": "マイナーの貢献",
@@ -67,6 +69,7 @@
   "signup_e_1":  "ログインパスワードに一貫性がありません",
   "signup_e_2":  "現金引き出しパスワードが矛盾しています",
   "signup_e_3":  "ログインパスワードと引き出しパスワードは異なる必要があります",
+  "signup_e_4":  "ユーザー名は英字または数字でなければなりません",
   "subuser_total":  "総人数：",
   "subuser_empty":  "マイナーはまだいません",
   "wallet_balance":  "利用可能な残高",
@@ -94,5 +97,12 @@
   "index_icon_6": "マイナー",
   "index_icon_7": "ゲーム",
   "index_icon_8":  "通知",
-  "index_coming": "近日公開"
+  "index_coming": "近日公開",
+  "phone_e_1": "正しい電話番号を入力してください",
+  "phone_phone_number":  "携帯電話番号を入力してください",
+  "phone_verify_code":  "確認コードを入力してください",
+  "phone_send": "確認コードを取得",
+  "phone_submit": "電話をバインド",
+  "subuser_order_amount": "投資額",
+  "subuser_team_amount": "チームの金額"
 }

@@ -1,4 +1,6 @@
 {
+  "no_phone_title": "You are not bind phone number",
+  "no_phone_title_desc": "Please go to the [My] menu to bind the phone, otherwise you will not be able to retrieve the password.",
   "footer_1": "Home",
   "footer_2": "wallet",
   "footer_3": "Mineral machine",
@@ -49,7 +51,7 @@
   "me_link_6": "APP download",
   "me_link_7": "Version",
   "me_link_8": "Service Email",
-  "me_link_9": "Invitation",
+  "me_link_9": "Invitation code",
   "me_link_10": "Language",
   "me_logout": "Logout",
   "miners_remain": "Miners contribution",
@@ -67,6 +69,7 @@
   "signup_e_1": "The login password is inconsistent",
   "signup_e_2": "The cash withdrawal password is inconsistent",
   "signup_e_3": "The login password and the withdrawal password must be different",
+  "signup_e_4": "Username must be letters or numbers",
   "subuser_total": "Total number of people: ",
   "subuser_empty": "You don't have any miners yet",
   "wallet_balance": "Available balance",
@@ -94,5 +97,12 @@
   "index_icon_6": "Miners",
   "index_icon_7": "Game",
   "index_icon_8": "Notices",
-  "index_coming": "Coming Soon"
+  "index_coming": "Coming Soon",
+  "phone_e_1": "Please enter the correct phone number",
+  "phone_phone_number": "Please enter your mobile number",
+  "phone_verify_code": "Please enter a verification code",
+  "phone_send": "Get verification code",
+  "phone_submit": "Bind the phone",
+  "subuser_order_amount": "investment amount",
+  "subuser_team_amount": "Team Amount"
 }

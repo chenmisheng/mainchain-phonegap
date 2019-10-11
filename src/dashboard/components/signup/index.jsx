@@ -17,6 +17,8 @@ import scanImg from '../../../assets/withdraw_scan.svg';
 
 const phoneReg = /^1\d{10}$/;
 
+const usernameReg = /^[0-9a-zA-Z]+$/;
+
 let handler;
 
 // images
@@ -44,6 +46,10 @@ class Signup extends Component {
     };
     if (password !== password_confirmation) {
       message.error(t('signup_e_1'));
+      return;
+    }
+    if (!usernameReg.test(username)) {
+      message.error(t('signup_e_4'));
       return;
     }
     // if (withdraw_password !== withdraw_password_confirmation) {
