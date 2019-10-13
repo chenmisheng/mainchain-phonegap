@@ -48,7 +48,7 @@ const pathConfigs = {
   },
   '/power': {
     header: {
-      title: '我的邀請',
+      title: 'header_power',
       icon: {
         left: 'back',
       },
@@ -65,7 +65,7 @@ const pathConfigs = {
   },
   '/buy': {
     header: {
-      title: '購買算力',
+      title: 'header_buy',
     },
     footer: {
       activeNav: 1,
@@ -80,7 +80,7 @@ const pathConfigs = {
   },
   '/wallet': {
     header: {
-      title: '錢包',
+      title: 'header_wallet',
     },
     footer: {
       activeNav: 3,
@@ -108,7 +108,7 @@ const pathConfigs = {
   },
   '/notice': {
     header: {
-      title: '公告',
+      title: 'header_notice',
       icon: {
         left: 'back',
       },
@@ -119,7 +119,7 @@ const pathConfigs = {
   },
   '/activities': {
     header: {
-      title: '領取記錄',
+      title: 'header_activities',
       icon: {
         left: 'back',
       },
@@ -131,7 +131,7 @@ const pathConfigs = {
   },
   '/invite': {
     header: {
-      title: 'APP下載',
+      title: 'header_invite',
       icon: {
         left: 'back',
       },
@@ -142,7 +142,7 @@ const pathConfigs = {
   },
   '/miners': {
     header: {
-      title: '礦工管理',
+      title: 'header_miners',
       icon: {
         left: 'back',
       },
@@ -155,7 +155,7 @@ const pathConfigs = {
   },
   '/subuser': {
     header: {
-      title: '我的團隊',
+      title: 'header_subuser',
       icon: {
         left: 'back',
       },
@@ -166,7 +166,7 @@ const pathConfigs = {
   },
   '/deposit/:currency': {
     header: {
-      title: '充值',
+      title: 'header_deposit/:currency',
       icon: {
         left: 'back',
       },
@@ -177,7 +177,7 @@ const pathConfigs = {
   },
   '/withdraw/:currency': {
     header: {
-      title: '提現',
+      title: 'header_withdraw/:currency',
       icon: {
         left: 'back',
       },
@@ -190,7 +190,7 @@ const pathConfigs = {
   },
   '/transfer/:currency': {
     header: {
-      title: '轉賬',
+      title: 'header_transfer/:currency',
       icon: {
         left: 'back',
       },
@@ -203,7 +203,7 @@ const pathConfigs = {
   },
   '/signup': {
     header: {
-      title: '註冊',
+      title: 'header_signup',
       icon: {
         left: 'back',
       },
@@ -211,12 +211,12 @@ const pathConfigs = {
   },
   '/login': {
     header: {
-      title: '登錄賬戶',
+      title: 'header_login',
     },
   },
   '/forgetPassword': {
     header: {
-      title: '重置密碼',
+      title: 'header_forgetPassword',
       icon: {
         left: 'back',
       },
@@ -224,7 +224,7 @@ const pathConfigs = {
   },
   '/post/:id': {
     header: {
-      title: '__COVER__',
+      title: 'header_post/:id',
       icon: {
         left: 'back',
       },
@@ -232,7 +232,7 @@ const pathConfigs = {
   },
   '/orders': {
     header: {
-      title: '我的訂單',
+      title: 'header_orders',
       icon: {
         left: 'back',
       },
@@ -243,7 +243,7 @@ const pathConfigs = {
   },
   '/changePassword': {
     header: {
-      title: '修改密碼',
+      title: 'header_changePassword',
       icon: {
         left: 'back',
       },
@@ -251,20 +251,15 @@ const pathConfigs = {
   },
   '/changeWithdrawPassword': {
     header: {
-      title: '修改提現密碼',
+      title: 'header_changeWithdrawPassword',
       icon: {
         left: 'back',
       },
     },
   },
-  '/about': {
-    header: {
-      title: '',
-    },
-  },
   '/phone': {
     header: {
-      title: '綁定手機',
+      title: 'header_phone',
       icon: {
         left: 'back',
       },

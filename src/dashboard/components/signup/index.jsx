@@ -19,6 +19,8 @@ const phoneReg = /^1\d{10}$/;
 
 const usernameReg = /^[0-9a-zA-Z]+$/;
 
+const passReg = /^[0-9a-zA-Z!@#$%^&*.]{8,20}$/;
+
 let handler;
 
 // images
@@ -50,6 +52,10 @@ class Signup extends Component {
     }
     if (!usernameReg.test(username)) {
       message.error(t('signup_e_4'));
+      return;
+    }
+    if (!passReg.test(password)) {
+      message.error(t('signup_e_5'));
       return;
     }
     // if (withdraw_password !== withdraw_password_confirmation) {

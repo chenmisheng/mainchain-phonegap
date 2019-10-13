@@ -5,6 +5,7 @@ import React, { Component } from 'react';
 import classnames from 'classnames';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
+import FormattedMessage from '../../components/common/formattedMessage';
 
 import './style.scss';
 
@@ -92,7 +93,7 @@ class MyHeader extends Component {
         <div className="icon-container">
           {config.icon && config.icon.left && this.getIcon(config.icon.left)}
         </div>
-        <div className="title">{config.title === '__COVER__' ? coverHeaderTitle : config.title}</div>
+        <div className="title">{config.title === '__COVER__' ? coverHeaderTitle : <FormattedMessage id={config.title} />}</div>
         <div className="icon-container">
           {config.icon && config.icon.right && this.getIcon(config.icon.right)}
         </div>
