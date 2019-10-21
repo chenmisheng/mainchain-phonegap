@@ -11,6 +11,36 @@ $ npm install -g phonegap@latest
 3. 执行`phonegap install browse`。
 4. 执行`cnpm i`。
 
+## 启动
+
+```
+$ npm run dev
+```
+
+浏览器访问`localhost:8060`获得页面。
+
+本地webpack代理设置，在`webpack/config.dev.json`里的`PROXY_DOMAIN`字段。
+
+## 编译静态文件
+
+修改`config.xml`内的版本号`version`字段。
+修改`package.json`内的版本号`version`字段。
+
+执行
+```
+$ npm run production
+```
+
+## 打包
+
+建议使用phonegap官方打包工具`https://build.phonegap.com`，可直接在线打包。
+
+## 其他
+
+请求列表都在`src/dashboard/querys.js`里。
+
+主体使用`react`+`dva`构建单页面应用，页面路由在`router.jsx`。
+
 ------
 
 下面是原版的README。
