@@ -63,17 +63,17 @@ class Me extends Component {
             <div className="goto" />
           </Link>
           <Link to="/phone" className="link">
-            <div><span className="icon"><img src={linkImg5} alt="" /></span> <span>綁定手機</span></div>
+            <div><span className="icon"><img src={linkImg5} alt="" /></span> <span>{t('me_link_11')}</span></div>
             <div className="goto" />
           </Link>
           {/* <Link to="/about" className="link">
             <div><span className="icon"><img src={linkImg3} alt="" /></span> <span>关于我们</span></div>
             <div className="goto" />
           </Link> */}
-          <Link to="/post/qa" className="link">
+          {/* <Link to="/post/qa" className="link">
             <div><span className="icon"><img src={linkImg4} alt="" /></span> <span>{t('me_link_4')}</span></div>
             <div className="goto" />
-          </Link>
+          </Link> */}
           <Link to="/invite" className="link">
             <div><span className="icon"><img src={linkImg6} alt="" /></span> <span>{t('me_link_6')}</span></div>
             <div className="goto" />

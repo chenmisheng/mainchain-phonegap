@@ -40,6 +40,7 @@ class Buy extends Component {
 
   getItemList(list) {
     const { use } = this.state;
+    const { disabledProducts } = this.props;
     const canBuy = this.props.list.can_buy;
 
     return list.map(product => (
@@ -52,7 +53,7 @@ class Buy extends Component {
           <div className="time">{t('buy_item_ranking')}{product.ranking}</div>
         </div>
         <div className="amount">
-          {canBuy ? (
+          {canBuy && disabledProducts.indexOf(product.id) === -1 ? (
             <div className="select-btn" onClick={() => this.handleShowOrder(product)}>{t('buy_item_buy')}</div>
           ) : (
             <div className="select-btn disabled">{t('buy_item_no_buy')}</div>
@@ -179,8 +180,6 @@ class Buy extends Component {
     const {
       showOrder, selected, submitting, checked, showTip, use,
     } = this.state;
-    console.log(list);
-
 
     return (
       <div id="buy" className="container">
@@ -316,7 +315,7 @@ class Buy extends Component {
   }
 }
 
-function mapStateToProps({ product, account }) {
+function mapStateToProps({ product, account, utils }) {
   const { account: accountInfo, orders } = account;
   const { products } = product;
   const myMiner = orders.filter(o => o.state === 'pending' || o.state === 'allowed')[0];
@@ -326,6 +325,7 @@ function mapStateToProps({ product, account }) {
     orders,
     list: products,
     accountInfo,
+    disabledProducts: utils.disabledProducts,
   };
 }
 

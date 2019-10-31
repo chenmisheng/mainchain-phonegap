@@ -29,6 +29,12 @@ class Signup extends Component {
     counting: 0,
   }
 
+  componentWillUnmount() {
+    if (handler) {
+      clearTimeout(handler);
+    }
+  }
+
   handleSubmit = () => {
     const {
       phone_number, verify_code,

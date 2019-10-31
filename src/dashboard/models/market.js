@@ -41,11 +41,6 @@ export default cleanStateModel({
       power: 0,
       level: 0,
     },
-    fee: {
-      btc: '0',
-      // usdt: '0',
-      eth: '0',
-    },
   },
   subscriptions: {},
   effects: {
@@ -54,9 +49,9 @@ export default cleanStateModel({
       if (data.success) {
         const d = data.data;
         const def = { ticker: { last_cny: 0, last_usdt: 0 } };
-        const btc = d.filter(t => t.name === 'BTC/USDT')[0] || def;
-        const eth = d.filter(t => t.name === 'ETH/USDT')[0] || def;
-        const main = d.filter(t => t.name === 'MAIN/ETH')[0] || def;
+        const btc = d.filter(t => t.name.split('/')[0] === 'BTC')[0] || def;
+        const eth = d.filter(t => t.name.split('/')[0] === 'ETH')[0] || def;
+        const main = d.filter(t => t.name.split('/')[0] === 'MAIN')[0] || def;
         const prices = {
           btc: {
             cny: btc.ticker.last_cny,

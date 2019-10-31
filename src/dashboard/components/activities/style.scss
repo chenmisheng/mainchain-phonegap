@@ -30,6 +30,13 @@
     .amount {
       flex-grow: 0;
       flex-shrink: 0;
+      text-align: right;
+
+      .depth {
+        opacity: 0.6;
+        transform: scale(0.8);
+        transform-origin: right;
+      }
     }
 
     .txid {

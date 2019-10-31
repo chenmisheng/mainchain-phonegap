@@ -47,7 +47,7 @@ class Withdraw extends Component {
     if (currency === 'usdt') {
       info.balance = data.usdt_balance;
     } else {
-      info.balance = data[`${currency}_balance`];
+      info.balance = data.balance;
     }
     return info;
   }
@@ -173,7 +173,7 @@ class Withdraw extends Component {
         </div>
         <div className="form">
           <div className="item">
-            <input type="text" placeholder={t('withdraw_form_address')} value={to} onChange={this.handleChangeTo} />
+            <input type="text" placeholder={t('withdraw_form_address') + (useWallet.unit === 'USDT' ? t('withdraw_form_address_omni') : '')} value={to} onChange={this.handleChangeTo} />
             <img className="scan-btn" src={scanImg} alt="" onClick={this.handleScan} />
           </div>
           <div className="item">
@@ -225,13 +225,13 @@ class Withdraw extends Component {
   }
 }
 
-function mapStateToProps({ account, market }) {
+function mapStateToProps({ account, utils }) {
   const { account: data, history } = account;
 
   return {
     data,
     history,
-    fee: market.fee,
+    fee: utils.fee,
   };
 }
 export default connect(mapStateToProps)(Withdraw);

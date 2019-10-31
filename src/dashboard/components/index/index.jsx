@@ -209,8 +209,16 @@ class Index extends Component {
 }
 
 function mapStateToProps({ market, account, utils, notice }) {
+  const { hideMarkets } = utils;
+  const prices = {
+    ...market.prices,
+  };
+  hideMarkets.forEach((currency) => {
+    delete prices[currency];
+  });
+
   return {
-    prices: market.prices,
+    prices,
     block: market.block,
     banners: utils.banners,
     account: account.account,

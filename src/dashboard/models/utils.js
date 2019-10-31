@@ -293,7 +293,14 @@ export default {
     i18n: window.i18n,
 
     //
-    serverEmail: window.localStorage.getItem('MAIN_SERVER_EMAIL') || '獲取中',
+    serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL')) || '獲取中',
+    fee: JSON.parse(window.localStorage.getItem('FEE')) || {
+      main: '20',
+      usdt: '0',
+    },
+    hideMarkets: JSON.parse(window.localStorage.getItem('HIDE_MARKETS')) || [],
+    disabledProducts: JSON.parse(window.localStorage.getItem('DISABLED_PRODUCTS')) || [],
+    rawPosts: JSON.parse(window.localStorage.getItem('POSTS')) || {},
   },
   subscriptions: {
     setup({ dispatch, history }) {
@@ -467,13 +474,16 @@ export default {
     * queryRemoteConfig(_, { call, put }) {
       const data = yield call(queryRemoteConfig);
       Object.keys(data).forEach((key) => {
-        window.localStorage.setItem(key, data[key]);
+        window.localStorage.setItem(key, JSON.stringify(data[key]));
       });
 
       yield put({
         type: 'updateState',
         payload: {
-          serverEmail: window.localStorage.getItem('MAIN_SERVER_EMAIL'),
+          serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL')),
+          fee: JSON.parse(window.localStorage.getItem('FEE')),
+          hideMarkets: JSON.parse(window.localStorage.getItem('HIDE_MARKETS')),
+          disabledProducts: JSON.parse(window.localStorage.getItem('DISABLED_PRODUCTS')),
         },
       });
     },

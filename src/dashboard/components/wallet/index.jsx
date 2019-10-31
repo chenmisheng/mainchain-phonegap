@@ -92,7 +92,7 @@ class Wallet extends Component {
         <div className="card-container">
           <div className={classnames('card', { usdt: use === 'usdt' })}>
             <div className="top">{t('wallet_balance')}</div>
-            <div className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.balance}</div>
+            <div className="amount" width="100%" height="72px">{useWallet.balance}</div>
             {/* <div className="value">
               <span>
                 {use === 'usdt' ? (
@@ -106,7 +106,7 @@ class Wallet extends Component {
           {use === 'main' && (
             <div className="card">
               <div className="top">{t('wallet_locked')}</div>
-              <div className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</div>
+              <div className="amount" width="100%" height="72px">{useWallet.locked}</div>
               {/* <div className="value">
                 <span>
                   {use === 'usdt' ? (

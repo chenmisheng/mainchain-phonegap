@@ -57,7 +57,16 @@ class Activities extends Component {
               <div className="txid">{item.title}</div>
               <div className="time">{item.time}</div>
             </div>
-            <div className="amount">{item.amount}</div>
+            <div className="amount">
+              {item.depth > 0 ? (
+                <>
+                  <div>{item.amount}</div>
+                  <div className="depth">{t('activities_depth_' + item.depth)}</div>
+                </>
+              ) : (
+                item.amount
+              )}
+            </div>
           </div>
         ))}
         {loading ? (
