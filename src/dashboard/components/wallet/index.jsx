@@ -5,7 +5,7 @@ import classnames from 'classnames';
 import { connect } from 'dva';
 import { Link } from 'dva/router';
 import { Spin, Icon } from 'antd';
-import AutoFontSizeDiv from '../common/autoFontSizeDiv';
+// import AutoFontSizeDiv from '../common/autoFontSizeDiv';
 import { t } from '../common/formattedMessage';
 import './style.scss';
 
@@ -19,7 +19,7 @@ import walletWitImg from '../../../assets/wallet_withdraw.svg';
 
 class Wallet extends Component {
   state = {
-    use: 'usdt',
+    use: 'main',
   }
 
   getUseWallet() {
@@ -45,7 +45,7 @@ class Wallet extends Component {
     } else if (use === 'main') {
       info.address = '';
       info.balance = accountInfo.balance;
-      info.locked = accountInfo.locked;
+      info.locked = accountInfo.activity_balance;
       info.logo = walletBase2Img;
       // info.unitValue = prices[use].usdt;
       info.block = block.btc;
@@ -85,14 +85,14 @@ class Wallet extends Component {
       <div id="wallet" className="container">
         <div className="top-select">
           <span>
-            <span className={classnames('option', { active: use === 'usdt' })} onClick={this.handleChangeUse.bind(this, 'usdt')}>USDT</span>
             <span className={classnames('option', { active: use === 'main' })} onClick={this.handleChangeUse.bind(this, 'main')}>MAIN</span>
+            <span className={classnames('option', { active: use === 'usdt' })} onClick={this.handleChangeUse.bind(this, 'usdt')}>USDT</span>
           </span>
         </div>
         <div className="card-container">
           <div className={classnames('card', { usdt: use === 'usdt' })}>
             <div className="top">{t('wallet_balance')}</div>
-            <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.balance}</AutoFontSizeDiv>
+            <div className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.balance}</div>
             {/* <div className="value">
               <span>
                 {use === 'usdt' ? (
@@ -106,7 +106,7 @@ class Wallet extends Component {
           {use === 'main' && (
             <div className="card">
               <div className="top">{t('wallet_locked')}</div>
-              <AutoFontSizeDiv className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</AutoFontSizeDiv>
+              <div className="amount" minFontPixels={20} maxFontPixels={48} width="100%" height="72px">{useWallet.locked}</div>
               {/* <div className="value">
                 <span>
                   {use === 'usdt' ? (

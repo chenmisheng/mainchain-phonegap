@@ -72,7 +72,7 @@ class Activities extends Component {
 
 function mapStateToProps({ account }) {
   return {
-    list: account.acitiviesDone,
+    list: account.acitiviesDone.filter(a => a.title !== '注册奖励'),
   };
 }
 

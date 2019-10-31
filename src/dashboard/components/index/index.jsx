@@ -162,7 +162,7 @@ class Index extends Component {
           <Link className="link" to="/activities">{t('index_activities')}</Link>
         </div>
         <div className="links-row">
-          <div className="link" onClick={openWhitepaper}>
+          <div className="link" onClick={() => this.handleGoto('/news')}>
             <div className="img-container"><img src={linkImg1} alt="" /></div>
             <div>{t('index_icon_1')}</div>
           </div>

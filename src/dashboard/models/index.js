@@ -4,6 +4,7 @@ import market from './market';
 import product from './product';
 import notice from './notice';
 import post from './post';
+import news from './news';
 
 const reducers = {
   utils,
@@ -12,6 +13,7 @@ const reducers = {
   product,
   notice,
   post,
+  news,
 };
 
 export default reducers;

@@ -375,6 +375,14 @@ const fetch = {
       .then(processData)
       .catch(catchError);
   },
+  cleanGet(url) {
+    return getFetchLib()(url, {
+      headers: {},
+      method: 'GET',
+    })
+      .then(checkStatus)
+      .then(parseJSON);
+  },
 };
 
 export default fetch;

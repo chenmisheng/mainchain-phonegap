@@ -117,6 +117,17 @@ const pathConfigs = {
       type: 'notice/queryNotices',
     }],
   },
+  '/news': {
+    header: {
+      title: 'header_news',
+      icon: {
+        left: 'back',
+      },
+    },
+    refresh: [{
+      type: 'news/queryNews',
+    }],
+  },
   '/activities': {
     header: {
       title: 'header_activities',
