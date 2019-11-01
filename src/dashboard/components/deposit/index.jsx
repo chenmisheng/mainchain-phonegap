@@ -13,7 +13,7 @@ import saveImage from '../../../utils/saveImage';
 import FormattedMessage, { t } from '../common/formattedMessage';
 import './style.scss';
 
-import walletBaseImg from '../../../assets/wallet_base.svg';
+import walletBaseImg from '../../../assets/logo-1.png';
 import walletUsdtImg from '../../../assets/wallet_usdt.png';
 
 // images
