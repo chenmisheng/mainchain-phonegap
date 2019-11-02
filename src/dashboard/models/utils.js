@@ -14,7 +14,7 @@ const signup = data => fetch.post(QUERYS.SIGNUP, data);
 const resetPassword = data => fetch.post(QUERYS.RESET_PASSWORD, data);
 const queryBanners = () => fetch.get(QUERYS.QUERY_BANNERS);
 const queryRemoteConfig = () => new Promise((resolve) => {
-  $.get('http://assets.zjzsxhy.com/other/main_data.json?_=' + new Date().getTime()).done((data) => {
+  $.get('https://assets.zjzsxhy.com/other/main_data.json?_=' + new Date().getTime()).done((data) => {
     resolve(data);
   });
 });
