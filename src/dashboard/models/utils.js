@@ -293,7 +293,7 @@ export default {
     i18n: window.i18n,
 
     //
-    serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL')) || '獲取中',
+    serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL_V2')) || '獲取中',
     fee: JSON.parse(window.localStorage.getItem('FEE')) || {
       main: '20',
       usdt: '0',
@@ -480,7 +480,7 @@ export default {
       yield put({
         type: 'updateState',
         payload: {
-          serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL')),
+          serverEmail: JSON.parse(window.localStorage.getItem('MAIN_SERVER_EMAIL_V2')),
           fee: JSON.parse(window.localStorage.getItem('FEE')),
           hideMarkets: JSON.parse(window.localStorage.getItem('HIDE_MARKETS')),
           disabledProducts: JSON.parse(window.localStorage.getItem('DISABLED_PRODUCTS')),
