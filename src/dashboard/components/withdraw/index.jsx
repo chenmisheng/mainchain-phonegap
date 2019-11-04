@@ -53,12 +53,32 @@ class Withdraw extends Component {
   }
 
   getFee() {
+    const { amount } = this.state;
     const { match, fee } = this.props;
     let currency = 'usdt';
     if (match && match.params) {
       currency = match.params.currency;
     }
-    return fee[currency];
+    const text = fee[currency];
+    if (text[text.length - 1] !== '%') {
+      return text;
+    }
+    const percent = text.slice(0, -1);
+    const num = parseFloat(percent) / 100;
+    return (parseFloat(amount) * num).toFixed(2);
+  }
+
+  getFeeText() {
+    const { match, fee } = this.props;
+    let currency = 'usdt';
+    if (match && match.params) {
+      currency = match.params.currency;
+    }
+    const text = fee[currency];
+    if (text[text.length - 1] !== '%') {
+      return text + ' ' + currency.toUpperCase();
+    }
+    return text;
   }
 
   getFinal() {
@@ -182,7 +202,7 @@ class Withdraw extends Component {
           <div className="item">
             <div className="form-info auto-height">
               <div>{t('withdraw_form_fee')}</div>
-              <div>{this.getFee()} {useWallet.unit}</div>
+              <div>{this.getFeeText()}</div>
             </div>
             <div className="form-info auto-height">
               <div>{t('withdraw_form_final')}</div>
